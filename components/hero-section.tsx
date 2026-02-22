@@ -22,13 +22,13 @@ export function HeroSection({ chatMode = false }: HeroSectionProps) {
     <section id="hero" className={chatMode ? "pt-7 md:pt-9" : "pt-5 md:pt-7"}>
       <div className="mx-auto w-fit max-w-5xl text-center">
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.3, ease: easeOut }}
           className="font-display whitespace-pre-wrap text-[clamp(3.2rem,8vw,6.2rem)] font-medium leading-[0.9] tracking-[-0.02em]"
           style={{ y: reduceMotion ? 0 : headingDepth }}
         >
-          <CinematicRevealText className="inline-block" duration={3.2}>
+          <CinematicRevealText className="inline-block" duration={3.2} initiallyVisible>
             Ayush Raj
           </CinematicRevealText>
         </motion.h1>
@@ -39,31 +39,31 @@ export function HeroSection({ chatMode = false }: HeroSectionProps) {
         >
           {chatMode ? (
             <motion.span
-              initial={{ opacity: 0, y: 10 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.1, delay: 0.16, ease: easeOut }}
             >
-              <CinematicRevealText className="inline-block" delay={0.06} duration={2.8}>
+              <CinematicRevealText className="inline-block" delay={0.06} duration={2.8} initiallyVisible>
                 Software Engineer
               </CinematicRevealText>
             </motion.span>
           ) : (
             <>
               <motion.span
-                initial={{ opacity: 0, y: 10 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.1, delay: 0.16, ease: easeOut }}
               >
-                <CinematicRevealText className="inline-block" delay={0.06} duration={2.75}>
+                <CinematicRevealText className="inline-block" delay={0.06} duration={2.75} initiallyVisible>
                   Backend
                 </CinematicRevealText>
               </motion.span>
               <motion.span
-                initial={{ opacity: 0, y: 10 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.1, delay: 0.24, ease: easeOut }}
               >
-                <CinematicRevealText className="inline-block" delay={0.08} duration={2.65}>
+                <CinematicRevealText className="inline-block" delay={0.08} duration={2.65} initiallyVisible>
                   Engineer
                 </CinematicRevealText>
               </motion.span>

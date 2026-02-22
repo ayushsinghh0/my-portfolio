@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FiArrowLeft, FiCalendar, FiCheckCircle, FiExternalLink, FiGithub, FiUsers } from "react-icons/fi";
+import {
+  FiArrowLeft,
+  FiCalendar,
+  FiCheckCircle,
+  FiExternalLink,
+  FiGithub,
+  FiUsers,
+} from "react-icons/fi";
 import { projects } from "@/data/portfolio";
 import { PageTitle } from "@/components/page-title";
 import { SiteShell } from "@/components/site-shell";
@@ -44,7 +51,9 @@ function getPrimaryLink(project: (typeof projects)[number]) {
   return project.githubUrl;
 }
 
-export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
+export default async function ProjectDetailPage({
+  params,
+}: ProjectDetailPageProps) {
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
 
@@ -53,7 +62,8 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
   }
 
   const projectIndex = projects.findIndex((item) => item.slug === slug);
-  const gradient = gradients[(projectIndex + gradients.length) % gradients.length];
+  const gradient =
+    gradients[(projectIndex + gradients.length) % gradients.length];
   const primaryLink = getPrimaryLink(project);
   const relatedProjects = projects.filter((item) => item.slug !== project.slug);
 
@@ -85,10 +95,22 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
               <div className="relative overflow-hidden rounded-2xl border border-black/25 bg-black/20 shadow-[0_14px_28px_rgba(0,0,0,0.22)]">
                 {project.logoPath ? (
                   <div className="relative h-[8.7rem] w-[8.7rem]">
-                    <Image src={project.logoPath} alt={`${project.title} logo`} fill className="object-cover" />
+                    <Image
+                      src={project.logoPath}
+                      alt={`${project.title} logo`}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                 ) : (
-                  <video autoPlay loop muted playsInline preload="metadata" className="h-[8.7rem] w-[8.7rem] object-cover">
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    className="h-[8.7rem] w-[8.7rem] object-cover"
+                  >
                     <source src={project.videoPath} type="video/mp4" />
                   </video>
                 )}
@@ -98,7 +120,9 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                 <h1 className="text-balance text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.02] tracking-[-0.022em] text-black">
                   {project.title}
                 </h1>
-                <p className="mt-2 text-[1.04rem] leading-relaxed text-black/88 sm:text-[1.16rem]">{project.description}</p>
+                <p className="mt-2 text-[1.04rem] leading-relaxed text-black/88 sm:text-[1.16rem]">
+                  {project.description}
+                </p>
               </div>
             </div>
           </article>
@@ -106,21 +130,28 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
           <div className="mt-8 grid gap-8 md:grid-cols-[1.45fr_1fr]">
             <div className="space-y-8">
               <section>
-                <h2 className="font-display text-[clamp(2.1rem,4.2vw,3.1rem)] leading-[0.98] text-[var(--foreground)]">About</h2>
+                <h2 className="font-display text-[clamp(2.1rem,4.2vw,3.1rem)] leading-[0.98]text-foreground">
+                  About
+                </h2>
                 <p className="mt-3 max-w-2xl text-[1.02rem] leading-[1.62] text-[var(--muted-foreground)] sm:text-[1.11rem]">
                   {project.about ?? project.description}
                 </p>
               </section>
 
               <section>
-                <h2 className="font-display text-[clamp(2.1rem,4.2vw,3.1rem)] leading-[0.98] text-[var(--foreground)]">
+                <h2 className="font-display text-[clamp(2.1rem,4.2vw,3.1rem)] leading-[0.98]text-foreground">
                   Key Features
                 </h2>
                 <ul className="mt-4 space-y-2.5">
                   {(project.keyFeatures ?? []).map((feature) => (
-                    <li key={feature} className="flex items-start gap-2.5 text-[var(--muted-foreground)]">
+                    <li
+                      key={feature}
+                      className="flex items-start gap-2.5 text-[var(--muted-foreground)]"
+                    >
                       <FiCheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--primary)]" />
-                      <span className="text-[0.995rem] leading-relaxed sm:text-[1.06rem]">{feature}</span>
+                      <span className="text-[0.995rem] leading-relaxed sm:text-[1.06rem]">
+                        {feature}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -129,7 +160,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
             <aside className="space-y-8">
               <section>
-                <h3 className="font-display text-[clamp(1.8rem,3vw,2.35rem)] leading-[1.02] text-[var(--foreground)]">
+                <h3 className="font-display text-[clamp(1.8rem,3vw,2.35rem)] leading-[1.02]text-foreground">
                   Info
                 </h3>
                 <div className="mt-4 space-y-3.5 text-[var(--muted-foreground)]">
@@ -165,7 +196,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                       rel="noreferrer"
                       data-premium
                       data-premium-variant="button"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-3 py-1.5 text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--panel-strong)]"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-3 py-1.5 text-sm font-semiboldtext-foreground hover:bg-[var(--panel-strong)]"
                     >
                       <FiGithub className="h-4 w-4" />
                       <span data-premium-text>GitHub</span>
@@ -176,7 +207,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                       rel="noreferrer"
                       data-premium
                       data-premium-variant="button"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-3 py-1.5 text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--panel-strong)]"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-3 py-1.5 text-sm font-semiboldtext-foreground hover:bg-[var(--panel-strong)]"
                     >
                       <FiExternalLink className="h-4 w-4" />
                       <span data-premium-text>Live Demo</span>
@@ -186,7 +217,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
               </section>
 
               <section>
-                <h3 className="font-display text-[clamp(1.8rem,3vw,2.35rem)] leading-[1.02] text-[var(--foreground)]">
+                <h3 className="font-display text-[clamp(1.8rem,3vw,2.35rem)] leading-[1.02]text-foreground">
                   Tech
                 </h3>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -216,7 +247,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
           </div>
 
           <div className="mt-8 border-t border-[var(--panel-border)] pt-6">
-            <h3 className="font-display text-[clamp(1.95rem,3.1vw,2.45rem)] leading-[1.02] text-[var(--foreground)]">
+            <h3 className="font-display text-[clamp(1.95rem,3.1vw,2.45rem)] leading-[1.02]text-foreground">
               More Projects
             </h3>
             <div className="mt-4 flex gap-4 overflow-x-auto pb-2">
@@ -231,7 +262,12 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                 >
                   {item.logoPath ? (
                     <div className="relative h-full w-full">
-                      <Image src={item.logoPath} alt={item.title} fill className="object-cover" />
+                      <Image
+                        src={item.logoPath}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
                   ) : (
                     <div className="flex h-full w-full items-center justify-center text-xs text-[var(--muted-foreground)]">

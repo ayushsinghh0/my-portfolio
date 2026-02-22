@@ -49,8 +49,16 @@ export function ExperienceSection() {
   });
   const headingDepthRaw = useTransform(scrollYProgress, [0, 1], [-7, 7]);
   const bodyDepthRaw = useTransform(scrollYProgress, [0, 1], [-16, 16]);
-  const headingDepth = useSpring(headingDepthRaw, { stiffness: 108, damping: 24, mass: 0.72 });
-  const bodyDepth = useSpring(bodyDepthRaw, { stiffness: 94, damping: 26, mass: 0.8 });
+  const headingDepth = useSpring(headingDepthRaw, {
+    stiffness: 108,
+    damping: 24,
+    mass: 0.72,
+  });
+  const bodyDepth = useSpring(bodyDepthRaw, {
+    stiffness: 94,
+    damping: 26,
+    mass: 0.8,
+  });
 
   return (
     <section id="experience" ref={sectionRef} className="pt-7 md:pt-8">
@@ -61,7 +69,10 @@ export function ExperienceSection() {
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         className="mx-auto max-w-5xl"
       >
-        <motion.h2 style={{ y: reduceMotion ? 0 : headingDepth }} className="font-edgy text-3xl sm:text-4xl">
+        <motion.h2
+          style={{ y: reduceMotion ? 0 : headingDepth }}
+          className="font-edgy text-3xl sm:text-4xl"
+        >
           <CinematicRevealText className="inline-block" duration={2.8}>
             Experience
           </CinematicRevealText>
@@ -74,8 +85,9 @@ export function ExperienceSection() {
           transition={{ duration: 1.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           className="mt-3 max-w-3xl text-[clamp(0.95rem,1.02vw,1.08rem)] leading-relaxed text-[var(--muted-foreground)]"
         >
-          No formal industry experience yet, but strong execution in real project environments. As a fresher, I focus
-          on building systems that feel production-ready, measurable, and useful.
+          No formal industry experience yet, but strong execution in real
+          project environments. As a fresher, I focus on building systems that
+          feel production-ready, measurable, and useful.
         </motion.p>
       </motion.div>
 
@@ -86,20 +98,29 @@ export function ExperienceSection() {
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 1.2, delay: index * 0.11, ease: [0.22, 1, 0.36, 1] }}
+            transition={{
+              duration: 1.2,
+              delay: index * 0.11,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             whileHover={{ y: -6 }}
             data-premium
             data-premium-variant="card"
             data-premium-strength="0.08"
             className="panel-strong rounded-2xl p-4"
           >
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--panel-border)]text-foreground">
               <item.icon className="h-5 w-5" />
             </span>
-            <h3 data-premium-text className="font-edgy mt-3.5 text-lg text-[var(--foreground)]">
+            <h3
+              data-premium-text
+              className="font-edgy mt-3.5 text-lgtext-foreground"
+            >
               {item.title}
             </h3>
-            <p className="mt-2 text-sm leading-relaxed text-[var(--muted-foreground)] sm:text-[0.95rem]">{item.detail}</p>
+            <p className="mt-2 text-sm leading-relaxed text-[var(--muted-foreground)] sm:text-[0.95rem]">
+              {item.detail}
+            </p>
           </motion.article>
         ))}
       </div>
@@ -117,9 +138,10 @@ export function ExperienceSection() {
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--panel-border)]">
           <FiTarget className="h-5 w-5" />
         </span>
-        <p className="flex-1 text-sm text-[var(--foreground)] sm:text-base">
-          Current goal: convert project depth into first high-impact professional role by delivering engineering quality
-          above fresher expectations.
+        <p className="flex-1 text-smtext-foreground sm:text-base">
+          Current goal: convert project depth into first high-impact
+          professional role by delivering engineering quality above fresher
+          expectations.
         </p>
         <span className="inline-flex items-center gap-2 rounded-full border border-[var(--panel-border)] px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] text-[var(--muted-foreground)]">
           <FiZap className="h-3.5 w-3.5" />

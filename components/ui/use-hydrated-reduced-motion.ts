@@ -1,15 +1,11 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
 import { useReducedMotion } from "framer-motion";
+import { useMounted } from "@/components/ui/use-mounted";
 
 export function useHydratedReducedMotion() {
   const prefersReducedMotion = useReducedMotion();
-  const hydrated = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
+  const mounted = useMounted();
 
-  return hydrated ? prefersReducedMotion : false;
+  return mounted ? prefersReducedMotion : false;
 }

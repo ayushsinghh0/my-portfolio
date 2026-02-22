@@ -13,8 +13,16 @@ export function PageTitle({ subtitle = "Backend Engineer" }: PageTitleProps) {
   const { scrollY } = useScroll();
   const headingDepthRaw = useTransform(scrollY, [0, 900], [0, 16]);
   const subtitleDepthRaw = useTransform(scrollY, [0, 900], [0, 34]);
-  const headingDepth = useSpring(headingDepthRaw, { stiffness: 120, damping: 22, mass: 0.65 });
-  const subtitleDepth = useSpring(subtitleDepthRaw, { stiffness: 110, damping: 24, mass: 0.68 });
+  const headingDepth = useSpring(headingDepthRaw, {
+    stiffness: 120,
+    damping: 22,
+    mass: 0.65,
+  });
+  const subtitleDepth = useSpring(subtitleDepthRaw, {
+    stiffness: 110,
+    damping: 24,
+    mass: 0.68,
+  });
 
   return (
     <section className="pt-6 text-center md:pt-10">
@@ -33,10 +41,14 @@ export function PageTitle({ subtitle = "Backend Engineer" }: PageTitleProps) {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.05, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-2 text-base font-semibold tracking-[-0.008em] text-[var(--foreground)] md:text-[1.1rem]"
+        className="mt-2 text-base font-semibold tracking-[-0.008em]text-foreground md:text-[1.1rem]"
         style={{ y: reduceMotion ? 0 : subtitleDepth }}
       >
-        <CinematicRevealText className="inline-block" delay={0.08} duration={2.4}>
+        <CinematicRevealText
+          className="inline-block"
+          delay={0.08}
+          duration={2.4}
+        >
           {subtitle}
         </CinematicRevealText>
       </motion.p>

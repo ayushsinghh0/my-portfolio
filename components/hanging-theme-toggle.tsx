@@ -1,17 +1,13 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 import { FiMoon, FiSun } from "react-icons/fi";
 import { useTheme } from "next-themes";
+import { useMounted } from "@/components/ui/use-mounted";
 
 export function HangingThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
+  const mounted = useMounted();
 
   const isDark = mounted && resolvedTheme === "dark";
   const beads = Array.from({ length: 12 });
@@ -25,7 +21,7 @@ export function HangingThemeToggle() {
       data-premium-variant="button"
       data-premium-transform="off"
       data-premium-strength="0.05"
-      initial={{ opacity: 0, y: -18 }}
+      initial={false}
       animate={{ opacity: 1, y: 0, rotate: [-0.24, 0.12, -0.08, 0] }}
       transition={{
         opacity: { duration: 0.95, ease: [0.22, 1, 0.36, 1] },

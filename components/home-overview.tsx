@@ -166,7 +166,7 @@ function getAssistantReply(prompt: string) {
 }
 
 const cardMotion = {
-  initial: { opacity: 0, y: 20 },
+  initial: false as const,
   animate: { opacity: 1, y: 0 },
   transition: { duration: 1.15, ease: [0.22, 1, 0.36, 1] as const },
 };
@@ -247,10 +247,16 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
   }
 
   return (
-    <section className={chatMode ? "pt-6 sm:pt-8" : "pb-[15.5rem] pt-6 sm:pb-[14.8rem] sm:pt-8"}>
+    <section
+      className={
+        chatMode
+          ? "pt-6 sm:pt-8"
+          : "pb-6 pt-6 sm:pb-8 sm:pt-8 lg:pb-10"
+      }
+    >
       {!chatMode ? (
         <div className="mx-auto max-w-7xl overflow-auto px-1 sm:px-3">
-          <div className="mb-4 grid w-full auto-rows-[5rem] grid-cols-3 gap-3 pt-3 md:mt-8 lg:auto-rows-[11rem] lg:grid-rows-2 lg:gap-4 lg:pt-1">
+          <div className="mb-4 grid w-full auto-rows-[5rem] grid-cols-3 gap-3 pt-3 md:mt-8 lg:auto-rows-[10.75rem] lg:grid-rows-2 lg:gap-4 lg:pt-1">
             <motion.div
               {...cardMotion}
               className="col-span-3 row-span-2 lg:col-start-1 lg:row-start-1 lg:col-span-1 lg:row-span-1"
@@ -275,16 +281,14 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
                   </div>
                 </div>
 
-                <div className="pointer-events-none relative z-10 flex h-full flex-col justify-end gap-1 transition-all duration-300 lg:group-hover:-translate-y-1.5">
-                  <div className="flex flex-col items-start gap-1.5">
-                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
-                      <FiUser className="h-6 w-6" />
-                    </span>
-                    <h3 data-premium-text className="font-display text-[2.05rem] leading-none tracking-[-0.015em] lg:text-[2.12rem]">
-                      About
-                    </h3>
-                  </div>
-                  <p className="text-[0.95rem] text-[var(--muted-foreground)]">A bit about myself.</p>
+                <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 transition-all duration-300 lg:group-hover:-translate-y-1.5">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
+                    <FiUser className="h-6 w-6" />
+                  </span>
+                  <h3 data-premium-text className="mt-2 font-display text-[2.05rem] leading-none tracking-[-0.015em] lg:text-[2.12rem]">
+                    About
+                  </h3>
+                  <p className="mt-1 text-[0.95rem] text-[var(--muted-foreground)]">A bit about myself.</p>
                 </div>
               </Link>
             </motion.div>
@@ -316,18 +320,14 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
                   </div>
                 </div>
 
-                <div className="pointer-events-none relative z-10 flex h-full flex-col justify-end gap-1 pr-24 transition-all duration-300 lg:group-hover:-translate-y-1.5">
-                  <div className="flex flex-col items-start gap-1.5">
-                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
-                      <FiBriefcase className="h-6 w-6" />
-                    </span>
-                    <h3 data-premium-text className="font-display text-[1.95rem] leading-[0.86] tracking-[-0.015em] lg:text-[2.1rem]">
-                      Work
-                      <br />
-                      Experience
-                    </h3>
-                  </div>
-                  <p className="text-[0.95rem] text-[var(--muted-foreground)]">My career as a Software Engineer.</p>
+                <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 pr-24 transition-all duration-300 lg:group-hover:-translate-y-1.5">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
+                    <FiBriefcase className="h-6 w-6" />
+                  </span>
+                  <h3 data-premium-text className="mt-2 font-display text-[1.95rem] leading-[0.9] tracking-[-0.015em] lg:text-[2.1rem]">
+                    Work Experience
+                  </h3>
+                  <p className="mt-1 text-[0.95rem] text-[var(--muted-foreground)]">My career as a Software Engineer.</p>
                 </div>
               </Link>
             </motion.div>
@@ -373,16 +373,14 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
 
                 <div className="absolute inset-x-0 top-[9.2rem] h-px bg-[var(--panel-border)]" />
 
-                <div className="pointer-events-none relative z-10 flex h-full flex-col justify-end gap-1 pt-[9.95rem] transition-all duration-300 lg:group-hover:-translate-y-1.5">
-                  <div className="flex flex-col items-start gap-1.5">
-                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
-                      <FiFolder className="h-6 w-6" />
-                    </span>
-                    <h3 data-premium-text className="font-edgy text-[2.35rem] leading-none tracking-[-0.018em] lg:text-[2.5rem]">
-                      Projects
-                    </h3>
-                  </div>
-                  <p className="max-w-lg text-[0.95rem] text-[var(--muted-foreground)]">
+                <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 transition-all duration-300 lg:group-hover:-translate-y-1.5">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
+                    <FiFolder className="h-6 w-6" />
+                  </span>
+                  <h3 data-premium-text className="mt-2 font-edgy text-[2.35rem] leading-none tracking-[-0.018em] lg:text-[2.5rem]">
+                    Projects
+                  </h3>
+                  <p className="mt-1 max-w-lg text-[0.95rem] text-[var(--muted-foreground)]">
                     Personal projects I&apos;ve been working on.
                   </p>
                 </div>
@@ -445,16 +443,14 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
                   </div>
                 </div>
 
-                <div className="pointer-events-none relative z-10 flex h-full flex-col justify-end gap-1 pt-[9.95rem] transition-all duration-300 lg:group-hover:-translate-y-1.5">
-                  <div className="flex flex-col items-start gap-1.5">
-                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
-                      <FiSend className="h-6 w-6" />
-                    </span>
-                    <h3 data-premium-text className="font-display text-[2.2rem] leading-none tracking-[-0.015em] lg:text-[2.35rem]">
-                      Contact
-                    </h3>
-                  </div>
-                  <p className="max-w-lg text-[0.95rem] text-[var(--muted-foreground)]">Email, LinkedIn, carrier pigeon...</p>
+                <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 transition-all duration-300 lg:group-hover:-translate-y-1.5">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
+                    <FiSend className="h-6 w-6" />
+                  </span>
+                  <h3 data-premium-text className="mt-2 font-display text-[2.2rem] leading-none tracking-[-0.015em] lg:text-[2.35rem]">
+                    Contact
+                  </h3>
+                  <p className="mt-1 max-w-lg text-[0.95rem] text-[var(--muted-foreground)]">Email, LinkedIn, carrier pigeon...</p>
                 </div>
               </Link>
             </motion.div>
@@ -464,18 +460,18 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
 
       {!chatMode ? (
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-0 z-30 -left-0.5 -right-0.5 sm:mb-[env(safe-area-inset-bottom)] md:left-16 md:right-16 lg:bottom-8 lg:left-32 lg:right-32"
+          className="mx-auto mt-2 w-full max-w-6xl px-1 sm:mt-3 sm:px-2 lg:mt-4"
         >
-          <h2 className="w-full py-2 text-center text-sm font-medium sm:text-xl">
+          <h2 className="w-full py-1 text-center text-sm font-medium sm:text-xl">
             <span className="mx-auto max-w-md text-[color-mix(in_oklab,var(--foreground)_65%,transparent)] shiny-text">
               Ask AyushGPT
             </span>
           </h2>
 
-          <div className="mb-2 flex flex-wrap justify-center gap-2 px-2">
+          <div className="mb-1.5 flex flex-wrap justify-center gap-2 px-2">
             {questionPills.map((pill) => (
               <button
                 key={pill}
@@ -483,7 +479,7 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
                 onClick={() => handleQuestionClick(pill)}
                 data-premium
                 data-premium-variant="button"
-                className="rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-4 py-2 text-[0.88rem] text-[var(--foreground)] hover:bg-[var(--panel-strong)]"
+                className="rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-4 py-1.5 text-[0.88rem] text-[var(--foreground)] hover:bg-[var(--panel-strong)]"
               >
                 <span data-premium-text>{pill}</span>
               </button>
@@ -491,15 +487,15 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
           </div>
 
           <form onSubmit={handleSubmit} className="w-full bg-[var(--background)] pb-[env(safe-area-inset-bottom)]">
-            <div className="group/input panel relative flex w-full min-w-0 flex-col rounded-t-3xl rounded-b-none border border-[var(--input)] shadow-xs sm:rounded-md">
+            <div className="group/input panel relative flex w-full min-w-0 flex-col rounded-2xl border border-[var(--input)] shadow-xs">
               <textarea
-                rows={4}
+                rows={1}
                 placeholder="What would you like to know?"
                 value={prompt}
                 onChange={(event) => setPrompt(event.target.value)}
-                className="field-sizing-content max-h-48 min-h-16 w-full resize-none border-0 bg-transparent px-5 pb-0 pt-5 text-base text-[var(--foreground)] outline-none placeholder:text-[var(--muted-foreground)] md:px-4 md:pt-4 md:text-sm"
+                className="max-h-48 min-h-14 w-full resize-none border-0 bg-transparent px-5 pb-0 pt-4 text-base text-[var(--foreground)] outline-none placeholder:text-[var(--muted-foreground)] md:px-4 md:text-sm"
               />
-              <div className="order-last flex w-full items-center justify-between gap-1 px-3 pb-4 pt-2">
+              <div className="order-last flex w-full items-center justify-between gap-1 px-3 pb-3 pt-2">
                 <button
                   type="button"
                   aria-label="Voice input"
@@ -524,7 +520,7 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
         </motion.div>
       ) : (
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto mt-6 flex min-h-[63vh] max-w-6xl flex-col"
@@ -557,7 +553,7 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
             {messages.slice(-5).map((message, index) => (
               <div key={`${message.role}-${index}-${message.text.slice(0, 30)}`}>
                 <motion.div
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={false}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                   className={`panel rounded-xl px-4 py-3 text-sm ${
@@ -571,7 +567,7 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
 
                 {message.role === "assistant" && message.suggestion ? (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={false}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
                     className="panel-strong mt-2 mr-auto flex w-full max-w-[48rem] flex-col gap-3 rounded-xl px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between"
@@ -600,13 +596,13 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
           <form onSubmit={handleSubmit} className="mt-3 w-full bg-[var(--background)] pb-[env(safe-area-inset-bottom)]">
             <div className="group/input panel relative flex w-full min-w-0 flex-col rounded-t-3xl rounded-b-none border border-[var(--input)] shadow-xs sm:rounded-md">
               <textarea
-                rows={4}
+                rows={1}
                 placeholder="What would you like to know?"
                 value={prompt}
                 onChange={(event) => setPrompt(event.target.value)}
-                className="field-sizing-content max-h-48 min-h-16 w-full resize-none border-0 bg-transparent px-5 pb-0 pt-5 text-base text-[var(--foreground)] outline-none placeholder:text-[var(--muted-foreground)] md:px-4 md:pt-4 md:text-sm"
+                className="max-h-48 min-h-14 w-full resize-none border-0 bg-transparent px-5 pb-0 pt-4 text-base text-[var(--foreground)] outline-none placeholder:text-[var(--muted-foreground)] md:px-4 md:text-sm"
               />
-              <div className="order-last flex w-full items-center justify-between gap-1 px-3 pb-4 pt-2">
+              <div className="order-last flex w-full items-center justify-between gap-1 px-3 pb-3 pt-2">
                 <button
                   type="button"
                   aria-label="Voice input"

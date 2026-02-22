@@ -16,8 +16,16 @@ export function ContactSection() {
   });
   const headingDepthRaw = useTransform(scrollYProgress, [0, 1], [-6, 6]);
   const bodyDepthRaw = useTransform(scrollYProgress, [0, 1], [-14, 14]);
-  const headingDepth = useSpring(headingDepthRaw, { stiffness: 108, damping: 24, mass: 0.72 });
-  const bodyDepth = useSpring(bodyDepthRaw, { stiffness: 94, damping: 26, mass: 0.8 });
+  const headingDepth = useSpring(headingDepthRaw, {
+    stiffness: 108,
+    damping: 24,
+    mass: 0.72,
+  });
+  const bodyDepth = useSpring(bodyDepthRaw, {
+    stiffness: 94,
+    damping: 26,
+    mass: 0.8,
+  });
 
   return (
     <section id="contact" ref={sectionRef} className="pt-10 md:pt-12">
@@ -28,12 +36,18 @@ export function ContactSection() {
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         className="mx-auto max-w-3xl"
       >
-        <motion.h2 style={{ y: reduceMotion ? 0 : headingDepth }} className="font-display text-3xl sm:text-4xl">
+        <motion.h2
+          style={{ y: reduceMotion ? 0 : headingDepth }}
+          className="font-display text-3xl sm:text-4xl"
+        >
           <CinematicRevealText className="inline-block" duration={2.8}>
             Get In Touch
           </CinematicRevealText>
         </motion.h2>
-        <motion.p style={{ y: reduceMotion ? 0 : bodyDepth }} className="mt-2.5 text-sm text-[var(--muted-foreground)] sm:text-base">
+        <motion.p
+          style={{ y: reduceMotion ? 0 : bodyDepth }}
+          className="mt-2.5 text-sm text-[var(--muted-foreground)] sm:text-base"
+        >
           Email:{" "}
           <a
             href="mailto:ayushraj4820@gmail.com"
@@ -45,50 +59,62 @@ export function ContactSection() {
 
         <form className="mt-6 space-y-4">
           <div className="space-y-2">
-            <label htmlFor="name" className="text-sm font-medium text-[var(--foreground)]">
+            <label
+              htmlFor="name"
+              className="text-sm font-mediumtext-foreground"
+            >
               Name
             </label>
             <input
               id="name"
               type="text"
               placeholder="Your Name"
-              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3 text-[var(--foreground)] outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
+              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium text-[var(--foreground)]">
+            <label
+              htmlFor="email"
+              className="text-sm font-mediumtext-foreground"
+            >
               Email
             </label>
             <input
               id="email"
               type="email"
               placeholder="your.email@example.com"
-              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3 text-[var(--foreground)] outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
+              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="company" className="text-sm font-medium text-[var(--foreground)]">
+            <label
+              htmlFor="company"
+              className="text-sm font-mediumtext-foreground"
+            >
               Company
             </label>
             <input
               id="company"
               type="text"
               placeholder="Company Name"
-              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3 text-[var(--foreground)] outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
+              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="message" className="text-sm font-medium text-[var(--foreground)]">
+            <label
+              htmlFor="message"
+              className="text-sm font-mediumtext-foreground"
+            >
               Message
             </label>
             <textarea
               id="message"
               rows={4}
               placeholder="Tell me about the role or project..."
-              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3 text-[var(--foreground)] outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
+              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
 

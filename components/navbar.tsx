@@ -1,12 +1,20 @@
 "use client";
 
-import { useSyncExternalStore, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useState, type PointerEvent as ReactPointerEvent } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { FiBriefcase, FiFolder, FiHome, FiMessageSquare, FiSend, FiUser } from "react-icons/fi";
+import {
+  FiBriefcase,
+  FiFolder,
+  FiHome,
+  FiMessageSquare,
+  FiSend,
+  FiUser,
+} from "react-icons/fi";
 import { navLinks } from "@/data/portfolio";
 import { ThemeToggle } from "./theme-toggle";
+import { useMounted } from "@/components/ui/use-mounted";
 import { useHydratedReducedMotion } from "@/components/ui/use-hydrated-reduced-motion";
 
 const sideLinks = [
@@ -21,17 +29,18 @@ const sideLinks = [
 export function Navbar() {
   const pathname = usePathname();
   const reduceMotion = useHydratedReducedMotion();
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
+  const mounted = useMounted();
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-  const [pointerMap, setPointerMap] = useState<Record<string, { x: number; y: number }>>({});
+  const [pointerMap, setPointerMap] = useState<
+    Record<string, { x: number; y: number }>
+  >({});
   const normalizedPath = pathname === "/account" ? "/about" : pathname;
   const shouldReduceMotion = !mounted || reduceMotion;
 
-  const handlePointerMove = (href: string, event: ReactPointerEvent<HTMLAnchorElement>) => {
+  const handlePointerMove = (
+    href: string,
+    event: ReactPointerEvent<HTMLAnchorElement>,
+  ) => {
     if (shouldReduceMotion) return;
     const rect = event.currentTarget.getBoundingClientRect();
     setPointerMap((prev) => ({
@@ -46,7 +55,7 @@ export function Navbar() {
   return (
     <>
       <motion.aside
-        initial={{ opacity: 0, x: -24 }}
+        initial={false}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
         className="fixed left-3 top-1/2 z-40 hidden -translate-y-1/2 md:block"
@@ -92,16 +101,29 @@ export function Navbar() {
                   layout
                   className="relative"
                   onHoverStart={() => setHoveredLink(link.href)}
-                  onHoverEnd={() => setHoveredLink((current) => (current === link.href ? null : current))}
+                  onHoverEnd={() =>
+                    setHoveredLink((current) =>
+                      current === link.href ? null : current,
+                    )
+                  }
                   onFocusCapture={() => setHoveredLink(link.href)}
-                  onBlurCapture={() => setHoveredLink((current) => (current === link.href ? null : current))}
+                  onBlurCapture={() =>
+                    setHoveredLink((current) =>
+                      current === link.href ? null : current,
+                    )
+                  }
                   whileHover={shouldReduceMotion ? undefined : { x: 1.8 }}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 >
                   {isActive ? (
                     <motion.span
                       layoutId="side-nav-active"
-                      transition={{ type: "spring", stiffness: 420, damping: 32, mass: 0.65 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 420,
+                        damping: 32,
+                        mass: 0.65,
+                      }}
                       className="absolute inset-0 rounded-full bg-[var(--primary)] shadow-[0_6px_22px_rgba(0,0,0,0.24)]"
                     />
                   ) : null}
@@ -122,8 +144,16 @@ export function Navbar() {
                         aria-hidden
                         className="absolute h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--primary)]/35 blur-[17px]"
                         style={{ left: pointer.x, top: pointer.y }}
-                        animate={{ opacity: isHovered ? [0.25, 0.46, 0.25] : [0.18, 0.34, 0.18] }}
-                        transition={{ duration: 2.3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                        animate={{
+                          opacity: isHovered
+                            ? [0.25, 0.46, 0.25]
+                            : [0.18, 0.34, 0.18],
+                        }}
+                        transition={{
+                          duration: 2.3,
+                          repeat: Number.POSITIVE_INFINITY,
+                          ease: "easeInOut",
+                        }}
                       />
                       {isHovered
                         ? [0, 1, 2].map((particle) => (
@@ -133,7 +163,11 @@ export function Navbar() {
                               style={{ left: pointer.x, top: pointer.y }}
                               animate={{
                                 x: [0, (particle - 1) * 7, (particle - 1) * 12],
-                                y: [0, -6 - particle * 1.4, -11 - particle * 2.2],
+                                y: [
+                                  0,
+                                  -6 - particle * 1.4,
+                                  -11 - particle * 2.2,
+                                ],
                                 opacity: [0.9, 0.45, 0],
                                 scale: [1, 0.85, 0.32],
                               }}
@@ -150,14 +184,20 @@ export function Navbar() {
                   ) : null}
 
                   <motion.div
-                    whileTap={shouldReduceMotion ? undefined : { y: 2.2, scale: 0.91 }}
-                    whileHover={shouldReduceMotion ? undefined : { y: -1.2, scale: 1.03 }}
+                    whileTap={
+                      shouldReduceMotion ? undefined : { y: 2.2, scale: 0.91 }
+                    }
+                    whileHover={
+                      shouldReduceMotion ? undefined : { y: -1.2, scale: 1.03 }
+                    }
                     transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <Link
                       href={link.href}
                       aria-label={link.label}
-                      onPointerMove={(event) => handlePointerMove(link.href, event)}
+                      onPointerMove={(event) =>
+                        handlePointerMove(link.href, event)
+                      }
                       data-premium
                       data-premium-variant="button"
                       data-premium-strength="0.09"
@@ -199,13 +239,18 @@ export function Navbar() {
       </motion.aside>
 
       <motion.header
-        initial={{ y: -24, opacity: 0 }}
+        initial={false}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
         className="sticky top-0 z-40 px-3 pb-2 pt-3 md:hidden"
       >
         <nav className="panel-strong flex items-center justify-between rounded-2xl px-3 py-2">
-          <Link href="/" data-premium data-premium-variant="button" className="text-sm font-semibold tracking-[0.1em] uppercase">
+          <Link
+            href="/"
+            data-premium
+            data-premium-variant="button"
+            className="text-sm font-semibold tracking-[0.1em] uppercase"
+          >
             <span data-premium-text>Ayush Raj</span>
           </Link>
 
@@ -217,13 +262,15 @@ export function Navbar() {
                 data-premium
                 data-premium-variant="button"
                 className={`rounded-lg px-2 py-1 text-xs whitespace-nowrap ${
-                  normalizedPath === link.href ? "text-[var(--foreground)]" : "text-[var(--muted)]"
+                  normalizedPath === link.href
+                    ? "text-[var(--foreground)]"
+                    : "text-[var(--muted)]"
                 }`}
               >
                 <span data-premium-text>{link.label}</span>
               </Link>
             ))}
-            <ThemeToggle className="panel inline-flex h-9 w-9 items-center justify-center rounded-lg text-[var(--foreground)]" />
+            <ThemeToggle className="panel inline-flex h-9 w-9 items-center justify-center rounded-lgtext-foreground" />
           </div>
         </nav>
       </motion.header>

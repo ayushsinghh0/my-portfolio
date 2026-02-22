@@ -11,6 +11,7 @@ type CinematicRevealTextProps = {
   duration?: number;
   once?: boolean;
   staggerWords?: boolean;
+  initiallyVisible?: boolean;
 };
 
 export function CinematicRevealText({
@@ -20,38 +21,40 @@ export function CinematicRevealText({
   duration = 2.8,
   once = true,
   staggerWords = false,
+  initiallyVisible = false,
 }: CinematicRevealTextProps) {
   const reduceMotion = useHydratedReducedMotion();
   const childText = typeof children === "string" ? children : null;
   const words = childText ? childText.split(" ") : null;
   const staggerWordsList = words ?? [];
   const canStagger = Boolean(words && words.length > 1 && staggerWords);
+  const shouldAnimate = !reduceMotion && !initiallyVisible;
 
   return (
     <motion.span
       initial={
-        reduceMotion
-          ? { opacity: 1, y: 0 }
-          : {
+        shouldAnimate
+          ? {
               opacity: 1,
               filter: "blur(0.9px)",
               y: 2,
               backgroundPosition: "140% 50%",
             }
+          : false
       }
       whileInView={
-        reduceMotion
-          ? { opacity: 1, y: 0 }
-          : {
+        shouldAnimate
+          ? {
               opacity: 1,
               filter: "blur(0px)",
               y: 0,
               backgroundPosition: "0% 50%",
             }
+          : undefined
       }
-      viewport={{ once, amount: 0.18 }}
+      viewport={shouldAnimate ? { once, amount: 0.18 } : undefined}
       transition={{
-        duration: reduceMotion ? 0.01 : duration,
+        duration: shouldAnimate ? duration : 0.01,
         delay,
         ease: [0.16, 1, 0.3, 1],
       }}
@@ -63,6 +66,7 @@ export function CinematicRevealText({
               backgroundImage:
                 "linear-gradient(108deg, color-mix(in oklab, var(--foreground) 28%, transparent) 0%, var(--foreground) 32%, color-mix(in oklab, white 62%, var(--foreground) 38%) 52%, var(--foreground) 72%, color-mix(in oklab, var(--foreground) 18%, transparent) 100%)",
               backgroundSize: "320% 100%",
+              backgroundPosition: shouldAnimate ? undefined : "0% 50%",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               color: "var(--foreground)",
@@ -70,7 +74,7 @@ export function CinematicRevealText({
             }
       }
     >
-      {!reduceMotion && canStagger ? (
+      {shouldAnimate && canStagger ? (
         <span className="cinematic-text-stagger" aria-label={childText ?? undefined}>
           {staggerWordsList.map((word, index) => (
             <motion.span
@@ -94,7 +98,7 @@ export function CinematicRevealText({
         children
       )}
 
-      {!reduceMotion ? (
+      {shouldAnimate ? (
         <motion.span
           aria-hidden
           initial={{ opacity: 0, x: "-135%" }}
