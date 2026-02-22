@@ -1,0 +1,19 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ww-bg" x1="28" y1="24" x2="236" y2="232" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#14213D"/>
+      <stop offset="1" stop-color="#0B1226"/>
+    </linearGradient>
+    <linearGradient id="ww-hat" x1="64" y1="42" x2="199" y2="173" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD15A"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="36" fill="url(#ww-bg)"/>
+  <rect x="8" y="8" width="240" height="240" rx="36" stroke="#F7C446" stroke-width="2" stroke-opacity="0.45"/>
+  <path d="M42 143C42 120 59 103 82 103H175C198 103 214 120 214 143C214 166 198 183 175 183H82C59 183 42 166 42 143Z" fill="url(#ww-hat)"/>
+  <path d="M62 104L170 54L212 102L62 104Z" fill="url(#ww-hat)"/>
+  <circle cx="168" cy="74" r="10" fill="#FFF3C4"/>
+  <text x="69" y="161" fill="#121826" font-family="Arial, sans-serif" font-size="50" font-weight="700">WW</text>
+</svg>
+
