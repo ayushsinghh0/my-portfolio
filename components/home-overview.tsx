@@ -520,9 +520,12 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
           initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-0 left-0 right-0 z-40 w-full bg-gradient-to-t from-[color-mix(in_oklab,var(--background)_95%,transparent)] via-[color-mix(in_oklab,var(--background)_78%,transparent)] to-transparent px-1 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] backdrop-blur-[1px] sm:px-2 md:left-24 md:px-4 lg:left-[7.5rem] lg:px-8"
+          className="fixed bottom-0 left-0 right-0 z-40 w-full pb-[calc(env(safe-area-inset-bottom)+0.5rem)]"
         >
-          <div className="mx-auto w-full max-w-6xl">
+          <div className="relative mx-auto w-full max-w-6xl px-1 sm:px-2 md:px-4 md:pl-[calc(6rem+0.75rem)] lg:px-8 lg:pl-[calc(7.5rem+1rem)]">
+            <div className="pointer-events-none absolute inset-x-3 bottom-0 top-0 rounded-t-3xl bg-gradient-to-t from-[color-mix(in_oklab,var(--background)_14%,transparent)] via-transparent to-transparent" />
+            <div className="pointer-events-none absolute inset-x-10 -top-3 h-10 rounded-full bg-[color-mix(in_oklab,var(--primary)_14%,transparent)] blur-2xl" />
+            <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[color-mix(in_oklab,var(--foreground)_18%,transparent)] to-transparent" />
             <h2 className="w-full py-1 text-center text-sm font-medium sm:text-xl">
               <span className="mx-auto max-w-md text-[color-mix(in_oklab,var(--foreground)_65%,transparent)] shiny-text">
                 Ask AyushGPT
@@ -544,7 +547,7 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
               ))}
             </div>
 
-            <form onSubmit={handleSubmit} className="w-full bg-[var(--background)] pb-[env(safe-area-inset-bottom)]">
+            <form onSubmit={handleSubmit} className="w-full pb-[env(safe-area-inset-bottom)]">
               <div className="group/input panel relative flex w-full min-w-0 flex-col rounded-2xl border border-[var(--input)] shadow-xs">
                 <textarea
                   rows={1}
@@ -652,7 +655,7 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
             ))}
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-3 w-full bg-[var(--background)] pb-[env(safe-area-inset-bottom)]">
+          <form onSubmit={handleSubmit} className="mt-3 w-full pb-[env(safe-area-inset-bottom)]">
             <div className="group/input panel relative flex w-full min-w-0 flex-col rounded-t-3xl rounded-b-none border border-[var(--input)] shadow-xs sm:rounded-md">
               <textarea
                 rows={1}

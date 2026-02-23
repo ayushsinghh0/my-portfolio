@@ -245,6 +245,571 @@ body::after {
   box-shadow: 0 0 7px rgba(150, 195, 255, 0.4);
 }
 
+.aot-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 71% 8%, rgba(255, 236, 193, 0.66) 0%, rgba(255, 236, 193, 0.18) 26%, transparent 53%),
+    radial-gradient(circle at 78% 22%, rgba(255, 208, 146, 0.28) 0%, transparent 40%),
+    radial-gradient(circle at 18% 32%, rgba(230, 175, 128, 0.2) 0%, transparent 39%),
+    radial-gradient(circle at 50% 58%, rgba(154, 109, 78, 0.25) 0%, transparent 42%),
+    linear-gradient(
+      180deg,
+      rgba(246, 240, 228, 0.99) 0%,
+      rgba(238, 221, 192, 0.99) 28%,
+      rgba(214, 173, 132, 0.93) 62%,
+      rgba(147, 107, 84, 0.9) 100%
+    );
+  background-size: 132% 132%, 118% 118%, 128% 128%, 140% 140%, 100% 100%;
+  animation: aot-sky-drift 72s ease-in-out infinite alternate;
+}
+
+.aot-atmosphere {
+  position: absolute;
+  inset: -10% -8% -8% -8%;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse at 24% 18%, rgba(255, 216, 172, 0.2) 0%, transparent 52%),
+    radial-gradient(ellipse at 68% 23%, rgba(255, 244, 213, 0.19) 0%, transparent 58%),
+    radial-gradient(ellipse at 44% 70%, rgba(86, 52, 37, 0.18) 0%, transparent 64%);
+  opacity: 0.55;
+  filter: blur(1.6px);
+  animation: aot-atmosphere-breathe 28s ease-in-out infinite;
+}
+
+.aot-clouds {
+  position: absolute;
+  inset: -16% -18% auto -18%;
+  height: 72%;
+  z-index: 2;
+  opacity: 0.42;
+  filter: blur(2px);
+  background:
+    radial-gradient(62% 46% at 24% 31%, rgba(255, 255, 255, 0.72) 0%, transparent 74%),
+    radial-gradient(57% 42% at 72% 24%, rgba(255, 255, 255, 0.62) 0%, transparent 76%),
+    radial-gradient(54% 42% at 52% 39%, rgba(255, 255, 255, 0.36) 0%, transparent 74%),
+    radial-gradient(42% 34% at 38% 21%, rgba(255, 255, 255, 0.28) 0%, transparent 72%);
+  animation: aot-cloud-drift 88s linear infinite alternate;
+}
+
+.aot-sunray {
+  position: absolute;
+  top: -30%;
+  width: 82%;
+  height: 168%;
+  z-index: 3;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(2.2px);
+  transform-origin: top left;
+}
+
+.aot-sunray-a {
+  left: 48%;
+  opacity: 0.24;
+  background: linear-gradient(110deg, rgba(255, 235, 186, 0.4) 0%, transparent 72%);
+  animation: aot-ray-shift 26s ease-in-out infinite;
+}
+
+.aot-sunray-b {
+  left: 42%;
+  opacity: 0.18;
+  background: linear-gradient(106deg, rgba(255, 220, 165, 0.34) 0%, transparent 74%);
+  animation: aot-ray-shift 34s ease-in-out infinite reverse;
+}
+
+.aot-wall-layer {
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  bottom: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.aot-wall-back {
+  height: 40%;
+  opacity: 0.43;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(97, 67, 52, 0.16) 0 24px,
+      rgba(116, 84, 67, 0.22) 24px 38px
+    ),
+    linear-gradient(0deg, rgba(59, 40, 32, 0.6) 0%, rgba(91, 64, 50, 0.48) 62%, rgba(162, 125, 94, 0.24) 100%);
+  clip-path: polygon(
+    0 100%,
+    0 44%,
+    8% 39%,
+    16% 44%,
+    26% 38%,
+    35% 44%,
+    45% 37%,
+    55% 45%,
+    64% 38%,
+    74% 43%,
+    85% 37%,
+    93% 42%,
+    100% 36%,
+    100% 100%
+  );
+  animation: aot-wall-sway 88s ease-in-out infinite;
+}
+
+.aot-wall-mid {
+  height: 34%;
+  opacity: 0.55;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(87, 57, 44, 0.24) 0 20px,
+      rgba(111, 75, 58, 0.3) 20px 34px
+    ),
+    linear-gradient(0deg, rgba(55, 36, 29, 0.68) 0%, rgba(95, 66, 52, 0.57) 66%, rgba(156, 117, 87, 0.26) 100%);
+  clip-path: polygon(
+    0 100%,
+    0 50%,
+    10% 46%,
+    19% 53%,
+    29% 45%,
+    39% 54%,
+    49% 46%,
+    59% 53%,
+    69% 45%,
+    79% 52%,
+    89% 45%,
+    100% 49%,
+    100% 100%
+  );
+  animation: aot-wall-sway 72s ease-in-out infinite reverse;
+}
+
+.aot-wall-front {
+  height: 28%;
+  opacity: 0.74;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(77, 51, 39, 0.29) 0 16px,
+      rgba(98, 65, 50, 0.34) 16px 28px
+    ),
+    linear-gradient(0deg, rgba(40, 28, 24, 0.82) 0%, rgba(75, 52, 43, 0.66) 61%, rgba(136, 100, 77, 0.38) 100%);
+  clip-path: polygon(
+    0 100%,
+    0 54%,
+    9% 49%,
+    18% 56%,
+    27% 48%,
+    37% 57%,
+    46% 50%,
+    56% 57%,
+    66% 49%,
+    76% 56%,
+    86% 48%,
+    94% 54%,
+    100% 51%,
+    100% 100%
+  );
+  animation: aot-wall-sway 58s ease-in-out infinite;
+}
+
+.aot-trees {
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  bottom: 12.5%;
+  height: 14%;
+  z-index: 6;
+  opacity: 0.36;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(68, 45, 36, 0.2) 0 8px,
+      rgba(91, 62, 49, 0.28) 8px 14px
+    ),
+    linear-gradient(180deg, rgba(90, 61, 49, 0.36) 0%, rgba(53, 33, 27, 0.72) 100%);
+  clip-path: polygon(
+    0 100%,
+    0 58%,
+    3% 45%,
+    6% 58%,
+    10% 42%,
+    13% 57%,
+    17% 40%,
+    21% 58%,
+    25% 41%,
+    29% 56%,
+    33% 39%,
+    37% 57%,
+    42% 42%,
+    47% 58%,
+    52% 40%,
+    57% 56%,
+    62% 41%,
+    67% 57%,
+    72% 43%,
+    77% 58%,
+    82% 42%,
+    87% 57%,
+    92% 44%,
+    96% 57%,
+    100% 46%,
+    100% 100%
+  );
+  animation: aot-trees-sway 42s ease-in-out infinite;
+}
+
+.aot-hills {
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  bottom: -1%;
+  height: 19%;
+  z-index: 7;
+  opacity: 0.46;
+  background:
+    radial-gradient(60% 90% at 12% 100%, rgba(76, 52, 40, 0.7) 0%, transparent 74%),
+    radial-gradient(68% 100% at 52% 100%, rgba(68, 45, 35, 0.66) 0%, transparent 76%),
+    radial-gradient(56% 96% at 90% 100%, rgba(82, 56, 43, 0.72) 0%, transparent 72%);
+  filter: blur(1.2px);
+  animation: aot-hills-breathe 24s ease-in-out infinite;
+}
+
+.aot-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  background: radial-gradient(115% 84% at 50% 34%, transparent 54%, rgba(27, 16, 11, 0.27) 100%);
+}
+
+.aot-branch {
+  position: absolute;
+  top: -6%;
+  width: 36%;
+  height: 34%;
+  z-index: 9;
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+.aot-branch::before,
+.aot-branch::after {
+  content: "";
+  position: absolute;
+}
+
+.aot-branch::before {
+  inset: 0;
+  background:
+    linear-gradient(117deg, rgba(56, 31, 23, 0.74) 0%, rgba(78, 46, 35, 0.63) 40%, transparent 76%),
+    linear-gradient(109deg, transparent 22%, rgba(84, 50, 38, 0.51) 25%, rgba(84, 50, 38, 0.51) 28%, transparent 29%),
+    linear-gradient(102deg, transparent 37%, rgba(83, 49, 37, 0.45) 40%, rgba(83, 49, 37, 0.45) 42%, transparent 43%),
+    linear-gradient(98deg, transparent 52%, rgba(80, 44, 34, 0.42) 54%, rgba(80, 44, 34, 0.42) 56%, transparent 57%);
+}
+
+.aot-branch::after {
+  inset: 4% 10% 10% 6%;
+  background:
+    radial-gradient(circle at 22% 28%, rgba(255, 186, 206, 0.44) 0%, transparent 24%),
+    radial-gradient(circle at 36% 16%, rgba(255, 205, 223, 0.36) 0%, transparent 22%),
+    radial-gradient(circle at 52% 34%, rgba(252, 170, 198, 0.33) 0%, transparent 25%),
+    radial-gradient(circle at 64% 20%, rgba(255, 196, 220, 0.3) 0%, transparent 21%),
+    radial-gradient(circle at 78% 36%, rgba(250, 164, 195, 0.28) 0%, transparent 22%);
+  filter: blur(0.25px);
+}
+
+.aot-branch-left {
+  left: -8%;
+  transform: rotate(-10deg);
+}
+
+.aot-branch-right {
+  right: -9%;
+  transform: scaleX(-1) rotate(-6deg);
+  opacity: 0.34;
+}
+
+.aot-dust {
+  position: absolute;
+  border-radius: 999px;
+  z-index: 10;
+  background: rgba(255, 243, 219, 0.88);
+  box-shadow: 0 0 12px rgba(255, 229, 169, 0.24);
+  will-change: transform, opacity;
+  animation: aot-dust-float ease-in-out infinite;
+}
+
+.aot-leaf {
+  position: absolute;
+  z-index: 11;
+  border-radius: 68% 32% 62% 38%;
+  background: linear-gradient(
+    132deg,
+    rgba(202, 145, 86, 0.84) 0%,
+    rgba(157, 103, 67, 0.78) 54%,
+    rgba(90, 56, 42, 0.74) 100%
+  );
+  box-shadow: 0 2px 10px rgba(59, 34, 24, 0.25);
+  will-change: transform, opacity;
+  animation: aot-leaf-drift linear infinite;
+}
+
+.aot-butterfly {
+  position: absolute;
+  z-index: 12;
+  width: 20px;
+  height: 14px;
+  opacity: 0;
+  will-change: transform, opacity;
+  transform-origin: center;
+  animation: aot-butterfly-flight linear infinite;
+  filter: drop-shadow(0 1px 5px rgba(72, 44, 34, 0.18));
+}
+
+.aot-butterfly-core {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: aot-butterfly-hover 3.6s ease-in-out infinite;
+}
+
+.aot-bfly-wing {
+  position: absolute;
+  top: 1px;
+  width: 10px;
+  height: 10px;
+  border-radius: 74% 26% 62% 38%;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 232, 241, 0.95) 0%,
+    rgba(255, 190, 214, 0.88) 28%,
+    rgba(216, 127, 168, 0.74) 72%,
+    rgba(138, 80, 114, 0.66) 100%
+  );
+  will-change: transform;
+  animation: aot-butterfly-flap 0.9s ease-in-out infinite;
+}
+
+.aot-bfly-wing-left {
+  left: 0;
+  transform-origin: right center;
+}
+
+.aot-bfly-wing-right {
+  right: 0;
+  transform-origin: left center;
+  animation-delay: -0.08s;
+  transform: scaleX(-1);
+}
+
+.aot-bfly-body {
+  position: absolute;
+  left: 50%;
+  top: 2px;
+  width: 2px;
+  height: 10px;
+  border-radius: 999px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(84, 48, 35, 0.88) 0%, rgba(56, 30, 22, 0.96) 100%);
+}
+
+@keyframes aot-sky-drift {
+  0% {
+    background-position:
+      0% 0%,
+      0% 0%,
+      0% 0%,
+      0% 0%,
+      0% 0%;
+  }
+  100% {
+    background-position:
+      18% -8%,
+      -12% 12%,
+      9% 7%,
+      -8% 10%,
+      0% 0%;
+  }
+}
+
+@keyframes aot-atmosphere-breathe {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate3d(0, -1.5%, 0) scale(1.03);
+    opacity: 0.62;
+  }
+}
+
+@keyframes aot-cloud-drift {
+  0% {
+    transform: translate3d(-7%, 0, 0) scale(1.02);
+  }
+  100% {
+    transform: translate3d(8%, 2%, 0) scale(1.08);
+  }
+}
+
+@keyframes aot-trees-sway {
+  0%,
+  100% {
+    transform: translateX(-1.5%) scaleX(1);
+  }
+  50% {
+    transform: translateX(1.5%) scaleX(1.03);
+  }
+}
+
+@keyframes aot-ray-shift {
+  0%,
+  100% {
+    transform: rotate(-9deg) translateX(0) scaleX(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: rotate(-6deg) translateX(3.8%) scaleX(1.06);
+    opacity: 0.25;
+  }
+}
+
+@keyframes aot-butterfly-flight {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-6deg) scale(var(--bf-scale, 1));
+    opacity: 0;
+  }
+  8% {
+    opacity: var(--bf-opacity, 0.55);
+  }
+  24% {
+    transform: translate3d(
+        calc(var(--bf-drift-x, 120px) * 0.24),
+        calc(var(--bf-drift-y, 18px) * -0.52),
+        0
+      )
+      rotate(calc(var(--bf-turn, 9deg) * -0.25))
+      scale(calc(var(--bf-scale, 1) * 1.05));
+  }
+  48% {
+    transform: translate3d(
+        calc(var(--bf-drift-x, 120px) * 0.55),
+        calc(var(--bf-drift-y, 18px) * 0.26),
+        0
+      )
+      rotate(calc(var(--bf-turn, 9deg) * 0.2))
+      scale(calc(var(--bf-scale, 1) * 0.96));
+  }
+  72% {
+    transform: translate3d(
+        calc(var(--bf-drift-x, 120px) * 0.82),
+        calc(var(--bf-drift-y, 18px) * -0.28),
+        0
+      )
+      rotate(calc(var(--bf-turn, 9deg) * 0.66))
+      scale(calc(var(--bf-scale, 1) * 1.03));
+    opacity: var(--bf-opacity, 0.55);
+  }
+  100% {
+    transform: translate3d(var(--bf-drift-x, 120px), var(--bf-drift-y, 18px), 0) rotate(var(--bf-turn, 9deg))
+      scale(var(--bf-scale, 1));
+    opacity: 0;
+  }
+}
+
+@keyframes aot-butterfly-flap {
+  0%,
+  100% {
+    transform: rotateY(0deg) scale(1);
+  }
+  50% {
+    transform: rotateY(62deg) scale(0.92);
+  }
+}
+
+@keyframes aot-butterfly-hover {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes aot-wall-sway {
+  0%,
+  100% {
+    transform: translateX(-1.8%);
+  }
+  50% {
+    transform: translateX(1.8%);
+  }
+}
+
+@keyframes aot-hills-breathe {
+  0%,
+  100% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0.42;
+  }
+  50% {
+    transform: translateY(-1.2%) scaleX(1.03);
+    opacity: 0.52;
+  }
+}
+
+@keyframes aot-dust-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: calc(var(--dust-opacity, 0.12) * 0.66);
+  }
+  50% {
+    transform: translate3d(var(--dust-drift, 18px), calc(var(--dust-rise, 8px) * -1), 0) scale(1.18);
+    opacity: var(--dust-opacity, 0.12);
+  }
+}
+
+@keyframes aot-leaf-drift {
+  0% {
+    transform: translate3d(0, -18px, 0) rotate(0deg) scale(0.9);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--leaf-opacity, 0.18);
+  }
+  35% {
+    transform: translate3d(
+        calc(var(--leaf-drift-x, 34px) * -0.16),
+        calc(var(--leaf-drift-y, 320px) * 0.34),
+        0
+      )
+      rotate(calc(var(--leaf-spin, 42deg) * -0.2));
+  }
+  64% {
+    transform: translate3d(
+        calc(var(--leaf-drift-x, 34px) * 0.66),
+        calc(var(--leaf-drift-y, 320px) * 0.68),
+        0
+      )
+      rotate(calc(var(--leaf-spin, 42deg) * 0.72));
+  }
+  100% {
+    transform: translate3d(
+        var(--leaf-drift-x, 34px),
+        var(--leaf-drift-y, 320px),
+        0
+      )
+      rotate(var(--leaf-spin, 42deg))
+      scale(0.94);
+    opacity: 0;
+  }
+}
+
 .grain::after {
   content: "";
   position: absolute;
@@ -930,7 +1495,19 @@ body::after {
   .pm-border-flow,
   .pm-shimmer-sweep,
   .pm-particle,
-  .cinematic-text-light {
+  .cinematic-text-light,
+  .aot-scene,
+  .aot-atmosphere,
+  .aot-clouds,
+  .aot-sunray,
+  .aot-wall-layer,
+  .aot-trees,
+  .aot-hills,
+  .aot-leaf,
+  .aot-dust,
+  .aot-butterfly,
+  .aot-butterfly-core,
+  .aot-bfly-wing {
     animation: none !important;
   }
 
