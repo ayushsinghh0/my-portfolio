@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Atkinson_Hyperlegible, Fraunces, JetBrains_Mono, Unbounded } from "next/font/google";
+import { HangingThemeToggle } from "@/components/hanging-theme-toggle";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import "./globals.css";
 
@@ -57,6 +58,58 @@ const themeInitScript = `
 })();
 `;
 
+const hydrationSanitizerScript = `
+(() => {
+  const shouldRemove = (name) =>
+    name === "bis_register" || name.startsWith("bis_") || name.startsWith("__processed_");
+
+  const cleanNode = (node) => {
+    if (!(node instanceof Element)) return;
+    for (const attrName of node.getAttributeNames()) {
+      if (shouldRemove(attrName)) {
+        node.removeAttribute(attrName);
+      }
+    }
+  };
+
+  const cleanTree = (root) => {
+    cleanNode(root);
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+    while (walker.nextNode()) {
+      cleanNode(walker.currentNode);
+    }
+  };
+
+  cleanTree(document.documentElement);
+
+  const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.type === "attributes" && mutation.attributeName && shouldRemove(mutation.attributeName)) {
+        if (mutation.target instanceof Element) {
+          mutation.target.removeAttribute(mutation.attributeName);
+        }
+      }
+
+      if (mutation.type === "childList" && mutation.addedNodes.length) {
+        for (const node of mutation.addedNodes) {
+          cleanTree(node);
+        }
+      }
+    }
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    childList: true,
+    subtree: true,
+  });
+
+  window.addEventListener("load", () => {
+    window.setTimeout(() => observer.disconnect(), 4000);
+  });
+})();
+`;
+
 export const metadata: Metadata = {
   title: "Ayush Raj | Backend Engineer & Full Stack Developer",
   description:
@@ -71,9 +124,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: hydrationSanitizerScript }} />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
+        suppressHydrationWarning
         className={`${atkinson.variable} ${jetBrainsMono.variable} ${fraunces.variable} ${unbounded.variable} bg-background font-sans text-foreground antialiased`}
       >
         <ThemeProvider
@@ -84,6 +139,7 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey="theme"
         >
+          <HangingThemeToggle />
           {children}
         </ThemeProvider>
       </body>

@@ -17,10 +17,6 @@ export function HangingThemeToggle() {
       type="button"
       aria-label="Toggle theme"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      data-premium
-      data-premium-variant="button"
-      data-premium-transform="off"
-      data-premium-strength="0.05"
       initial={false}
       animate={{ opacity: 1, y: 0, rotate: [-0.24, 0.12, -0.08, 0] }}
       transition={{
@@ -29,7 +25,7 @@ export function HangingThemeToggle() {
         rotate: { duration: 1.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 },
       }}
       whileTap={{ y: 6 }}
-      className="group fixed -top-11 right-6 z-[70] block select-none sm:right-12 md:right-24"
+      className="pull-chain-toggle group fixed -top-11 right-6 z-[120] block select-none sm:right-12 md:right-24"
     >
       <div className="w-3 h-3 rounded-full border border-gray-500 bg-gradient-to-b from-gray-600 to-gray-800 shadow-sm" />
 

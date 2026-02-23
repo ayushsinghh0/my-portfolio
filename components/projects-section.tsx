@@ -51,23 +51,30 @@ export function ProjectsSection() {
         </>
       ) : null}
 
-      <div className="mx-auto mt-7 w-full max-w-[46rem] pb-20 sm:mt-8 sm:pb-24 md:mt-10">
+      <div className="mx-auto mt-6 w-full max-w-[46rem] space-y-0 pb-[calc(10rem+env(safe-area-inset-bottom))] sm:mt-7 sm:pb-[calc(11rem+env(safe-area-inset-bottom))] md:mt-9 md:pb-[calc(12rem+env(safe-area-inset-bottom))]">
         {stackItems.map((item, index) => (
-          <motion.div
+          <div
             key={item.key}
-            initial={{ opacity: 0, y: reduceMotion ? 0 : 26 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, delay: Math.min(index * 0.08, 0.36), ease: [0.22, 1, 0.36, 1] }}
-            className="relative h-[20.4rem] sm:h-[21.8rem] md:h-[22.6rem]"
-            style={{ zIndex: index + 5 }}
+            className="sticky top-[calc(7.625rem+env(safe-area-inset-top))] h-[min(76vh,30rem)] sm:h-[min(74vh,31rem)] md:top-[calc(11.375rem+env(safe-area-inset-top))] md:h-[min(72vh,32rem)]"
           >
-            {item.type === "project" ? (
-              <ProjectCard project={item.project} index={index} />
-            ) : (
-              <ProjectCard variant="contact" index={index} />
-            )}
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, delay: Math.min(index * 0.08, 0.36), ease: [0.22, 1, 0.36, 1] }}
+              className="origin-top relative h-[15.9rem] sm:h-[16.95rem]"
+              style={{
+                top: `${Math.min(index * 4, 12)}%`,
+                zIndex: index + 10,
+              }}
+            >
+              {item.type === "project" ? (
+                <ProjectCard project={item.project} index={index} />
+              ) : (
+                <ProjectCard variant="contact" index={index} />
+              )}
+            </motion.div>
+          </div>
         ))}
       </div>
     </section>

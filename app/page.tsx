@@ -16,7 +16,7 @@ export default async function Home({ searchParams }: HomePageProps) {
   }
 
   return (
-    <SiteShell hideFooter>
+    <SiteShell hideFooter maxWidthClass="max-w-[88rem]">
       <HeroSection />
       <HomeOverview />
     </SiteShell>

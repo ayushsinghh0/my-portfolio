@@ -18,8 +18,10 @@ const projectLogos = [
   { alt: "Scraaatch", src: "/projects/ic-scraaatch.svg" },
   { alt: "AnAss", src: "/projects/ic-anass.svg" },
   { alt: "Daily Story", src: "/projects/ic-daily-story.svg" },
-  { alt: "Zod & JSON", src: "/projects/ic-zod-json.svg" },
+  { alt: "Zod & JSON Schema Builder", src: "/projects/ic-zod-json.svg" },
 ];
+
+const contactBubblePattern = [true, false, true, false, true] as const;
 
 const questionPills = [
   "Who is Ayush?",
@@ -178,7 +180,18 @@ type HomeOverviewProps = {
 
 export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverviewProps) {
   const router = useRouter();
-  const marqueeItems = [...projectLogos, ...projectLogos, ...projectLogos];
+  const marqueeItems = [
+    ...projectLogos,
+    ...projectLogos,
+    ...projectLogos,
+    ...projectLogos,
+  ];
+  const contactBubbleStream = [
+    ...contactBubblePattern,
+    ...contactBubblePattern,
+    ...contactBubblePattern,
+    ...contactBubblePattern,
+  ];
   const [prompt, setPrompt] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>(() => {
     const baseMessages: ChatMessage[] = [
@@ -255,11 +268,11 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
       }
     >
       {!chatMode ? (
-        <div className="mx-auto max-w-7xl overflow-auto px-1 sm:px-3">
-          <div className="mb-4 grid w-full auto-rows-[5rem] grid-cols-3 gap-3 pt-3 md:mt-8 lg:auto-rows-[10.75rem] lg:grid-rows-2 lg:gap-4 lg:pt-1">
+        <div className="mx-auto w-full max-w-full overflow-auto px-1 sm:px-3">
+          <div className="mb-4 grid w-full auto-rows-[4.5rem] grid-cols-3 gap-3 pt-4 md:mt-12 lg:auto-rows-[9.25rem] lg:grid-rows-[repeat(4,9.25rem)] lg:gap-4 lg:pt-0">
             <motion.div
               {...cardMotion}
-              className="col-span-3 row-span-2 lg:col-start-1 lg:row-start-1 lg:col-span-1 lg:row-span-1"
+              className="col-span-3 row-span-2 lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-2"
             >
               <Link
                 href="/about"
@@ -267,36 +280,50 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
                 data-premium-variant="card"
                 data-premium-strength="0.07"
                 data-premium-zoom="0.04"
-                className="ref-card group block h-full p-4"
+                className="cursor-pointer group relative flex h-full flex-col overflow-hidden rounded-xl bg-[var(--background)] [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] transform-gpu md:justify-between dark:bg-[var(--background)] dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]"
               >
-                <div className="absolute inset-0 -bottom-6 flex items-end justify-end overflow-hidden pb-4">
-                  <div className="relative h-24 w-40 sm:h-28 sm:w-48">
-                    <Image
-                      src="/finalincon.png"
-                      alt=""
-                      fill
-                      className="absolute top-0 h-auto w-full object-contain"
-                      style={{ clipPath: "inset(0 0 42% 0)" }}
-                    />
+                <div className="home-card-layer group absolute inset-0">
+                  <div className="absolute inset-0 -bottom-6 flex items-end justify-end overflow-hidden pb-4">
+                    <div className="relative h-24 w-40 sm:h-28 sm:w-48">
+                      <Image
+                        src="/finalincon.png"
+                        alt=""
+                        fill
+                        sizes="(min-width: 1024px) 12rem, 10rem"
+                        className="absolute top-0 h-auto w-full object-contain"
+                        style={{ clipPath: "inset(0 0 42% 0)" }}
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 transition-all duration-300 lg:group-hover:-translate-y-1.5">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
-                    <FiUser className="h-6 w-6" />
-                  </span>
-                  <h3 data-premium-text className="mt-2 font-display text-[2.05rem] leading-none tracking-[-0.015em] lg:text-[2.12rem]">
-                    About
-                  </h3>
-                  <p className="mt-1 text-[0.95rem] text-[var(--muted-foreground)]">A bit about myself.</p>
+                <div className="px-4 py-2 lg:py-4">
+                  <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 transition-all duration-300 lg:group-hover:-translate-y-2">
+                    <div className="flex flex-row items-center gap-2 lg:flex-col lg:items-start lg:gap-1">
+                      <FiUser className="size-5 origin-left transform-gpu text-neutral-700 transition-all duration-300 ease-in-out group-hover:text-[var(--primary)] dark:text-neutral-300 lg:size-12 lg:group-hover:scale-75" />
+                      <h3
+                        data-premium-text
+                        className="font-serif text-lg font-semibold text-neutral-700 dark:text-neutral-300 lg:text-xl"
+                      >
+                        About
+                      </h3>
+                      <div className="ml-auto lg:hidden">
+                        <span className="inline-flex size-9 items-center justify-center text-[var(--primary)]">
+                          <FiArrowRight className="size-6" />
+                        </span>
+                      </div>
+                    </div>
+                    <p className="max-w-lg text-xs text-neutral-400 lg:text-sm">A bit about myself.</p>
+                  </div>
                 </div>
+                <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300" />
               </Link>
             </motion.div>
 
             <motion.div
               {...cardMotion}
               transition={{ ...cardMotion.transition, delay: 0.06 }}
-              className="col-span-3 row-span-2 lg:col-start-1 lg:row-start-2 lg:col-span-1 lg:row-span-1"
+              className="col-span-3 row-span-2 lg:col-start-1 lg:col-end-2 lg:row-start-2 lg:row-end-3"
             >
               <Link
                 href="/experience"
@@ -304,38 +331,54 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
                 data-premium-variant="card"
                 data-premium-strength="0.07"
                 data-premium-zoom="0.04"
-                className="ref-card group block h-full p-4"
+                className="cursor-pointer group relative flex h-full flex-col overflow-hidden rounded-xl bg-[var(--background)] [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] transform-gpu md:justify-between dark:bg-[var(--background)] dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]"
               >
-                <div className="absolute inset-0 flex items-start justify-end overflow-hidden">
-                  <div className="relative h-24 w-40 sm:h-24 sm:w-48">
-                    <Image
-                      src="/finalincon.png"
-                      alt=""
-                      fill
-                      className="absolute bottom-4 h-auto w-full rounded-bl-lg object-contain"
-                      style={{ clipPath: "inset(55% 0 0 0)" }}
-                    />
-                    <div className="pointer-events-none absolute bottom-4 left-0 right-0 h-12 bg-gradient-to-t from-[var(--background)] to-transparent" />
-                    <div className="pointer-events-none absolute bottom-4 left-0 top-0 w-12 bg-gradient-to-r from-[var(--background)] to-transparent" />
+                <div className="home-card-layer group absolute inset-0">
+                  <div className="absolute inset-0 flex items-start justify-end overflow-hidden">
+                    <div className="relative h-24 w-40 sm:h-24 sm:w-48">
+                      <Image
+                        src="/finalincon.png"
+                        alt=""
+                        fill
+                        sizes="(min-width: 1024px) 12rem, 10rem"
+                        className="absolute bottom-4 h-auto w-full rounded-bl-lg object-contain"
+                        style={{ clipPath: "inset(55% 0 0 0)" }}
+                      />
+                      <div className="pointer-events-none absolute bottom-4 left-0 right-0 h-12 bg-gradient-to-t from-[var(--background)] to-transparent" />
+                      <div className="pointer-events-none absolute bottom-4 left-0 top-0 w-12 bg-gradient-to-r from-[var(--background)] to-transparent" />
+                    </div>
                   </div>
                 </div>
 
-                <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 pr-24 transition-all duration-300 lg:group-hover:-translate-y-1.5">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
-                    <FiBriefcase className="h-6 w-6" />
-                  </span>
-                  <h3 data-premium-text className="mt-2 font-display text-[1.95rem] leading-[0.9] tracking-[-0.015em] lg:text-[2.1rem]">
-                    Work Experience
-                  </h3>
-                  <p className="mt-1 text-[0.95rem] text-[var(--muted-foreground)]">My career as a Software Engineer.</p>
+                <div className="px-4 py-2 lg:py-4">
+                  <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 transition-all duration-300 lg:group-hover:-translate-y-2">
+                    <div className="flex flex-row items-center gap-2 lg:flex-col lg:items-start lg:gap-1">
+                      <FiBriefcase className="size-5 origin-left transform-gpu text-neutral-700 transition-all duration-300 ease-in-out group-hover:text-[var(--primary)] dark:text-neutral-300 lg:size-12 lg:group-hover:scale-75" />
+                      <h3
+                        data-premium-text
+                        className="font-serif text-lg font-semibold text-neutral-700 dark:text-neutral-300 lg:text-xl"
+                      >
+                        Work Experience
+                      </h3>
+                      <div className="ml-auto lg:hidden">
+                        <span className="inline-flex size-9 items-center justify-center text-[var(--primary)]">
+                          <FiArrowRight className="size-6" />
+                        </span>
+                      </div>
+                    </div>
+                    <p className="max-w-lg text-xs text-neutral-400 lg:text-sm">
+                      My career as a Software Engineer.
+                    </p>
+                  </div>
                 </div>
+                <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300" />
               </Link>
             </motion.div>
 
             <motion.div
               {...cardMotion}
               transition={{ ...cardMotion.transition, delay: 0.1 }}
-              className="col-span-3 row-span-4 lg:col-start-2 lg:row-start-1 lg:col-span-1 lg:row-span-2"
+              className="col-span-3 row-span-4 lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-3"
             >
               <Link
                 href="/projects"
@@ -343,54 +386,63 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
                 data-premium-variant="card"
                 data-premium-strength="0.07"
                 data-premium-zoom="0.04"
-                className="ref-card group block h-full p-4"
+                className="cursor-pointer group relative flex h-full flex-col overflow-hidden rounded-xl bg-[var(--background)] [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] transform-gpu md:justify-between dark:bg-[var(--background)] dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]"
               >
-                <div className="absolute inset-x-0 -top-2 flex h-[9.2rem] items-start overflow-hidden">
-                  <motion.div
-                    animate={{ x: ["0%", "-50%"] }}
-                    transition={{ duration: 15, ease: "linear", repeat: Infinity }}
-                    className="mr-10 ml-auto flex w-max gap-4 px-3 pt-6 lg:mr-0 lg:ml-0 lg:px-4"
-                  >
-                    {marqueeItems.map((item, index) => (
-                      <div
-                        key={`${item.alt}-${index}`}
-                        className="size-16 shrink-0 self-start transition-transform duration-300 ease-in-out md:size-20"
+                <div className="home-card-layer group absolute inset-0">
+                  <div className="absolute inset-x-0 top-0 h-[56%] flex items-center overflow-hidden">
+                    <div
+                      className="project-strip-track group-hover:[animation-play-state:paused]"
+                    >
+                      {marqueeItems.map((item, index) => (
+                        <div
+                          key={`${item.alt}-${index}`}
+                          className="self-start flex-shrink-0 size-16 scale-90 transition-transform duration-300 ease-in-out md:size-20"
+                        >
+                          <Image
+                            src={item.src}
+                            alt={item.alt}
+                            width={112}
+                            height={112}
+                            className="-my-2 block size-28 md:size-[7.5rem]"
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[var(--background)] to-transparent md:inset-y-0 md:inset-x-auto md:left-0 md:h-auto md:w-1/4 md:bg-gradient-to-r" />
+                    <div className="pointer-events-none absolute inset-x-0 -bottom-4 h-16 bg-gradient-to-t from-[var(--background)] to-transparent md:inset-y-0 md:inset-x-auto md:right-0 md:h-auto md:w-1/4 md:bg-gradient-to-l" />
+                  </div>
+                </div>
+
+                <div className="relative z-10 flex h-full flex-col justify-end px-4 py-2 lg:py-4">
+                  <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 transition-all duration-300 lg:group-hover:-translate-y-2">
+                    <div className="flex flex-row items-center gap-2 lg:flex-col lg:items-start lg:gap-1">
+                      <FiFolder className="size-5 origin-left transform-gpu text-neutral-700 transition-all duration-300 ease-in-out group-hover:text-[var(--primary)] dark:text-neutral-300 lg:size-12 lg:group-hover:scale-75" />
+                      <h3
+                        data-premium-text
+                        className="font-serif text-lg font-semibold text-neutral-700 dark:text-neutral-300 lg:text-xl"
                       >
-                        <Image
-                          src={item.src}
-                          alt={item.alt}
-                          width={120}
-                          height={120}
-                          className="-my-2 block size-28 object-contain md:size-[7.5rem]"
-                        />
+                        Projects
+                      </h3>
+                      <div className="ml-auto lg:hidden">
+                        <span className="inline-flex size-9 items-center justify-center text-[var(--primary)]">
+                          <FiArrowRight className="size-6" />
+                        </span>
                       </div>
-                    ))}
-                  </motion.div>
-
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[var(--background)] to-transparent lg:inset-y-0 lg:inset-x-auto lg:left-0 lg:h-auto lg:w-1/4 lg:bg-gradient-to-r" />
-                  <div className="pointer-events-none absolute inset-x-0 -bottom-4 h-16 bg-gradient-to-t from-[var(--background)] to-transparent lg:inset-y-0 lg:inset-x-auto lg:right-0 lg:h-auto lg:w-1/4 lg:bg-gradient-to-l" />
+                    </div>
+                    <p className="max-w-lg text-xs text-neutral-400 lg:text-sm">
+                      Personal projects I&apos;ve been working on.
+                    </p>
+                  </div>
                 </div>
-
-                <div className="absolute inset-x-0 top-[9.2rem] h-px bg-[var(--panel-border)]" />
-
-                <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 transition-all duration-300 lg:group-hover:-translate-y-1.5">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
-                    <FiFolder className="h-6 w-6" />
-                  </span>
-                  <h3 data-premium-text className="mt-2 font-edgy text-[2.35rem] leading-none tracking-[-0.018em] lg:text-[2.5rem]">
-                    Projects
-                  </h3>
-                  <p className="mt-1 max-w-lg text-[0.95rem] text-[var(--muted-foreground)]">
-                    Personal projects I&apos;ve been working on.
-                  </p>
-                </div>
+                <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300" />
               </Link>
             </motion.div>
 
             <motion.div
               {...cardMotion}
               transition={{ ...cardMotion.transition, delay: 0.14 }}
-              className="col-span-3 row-span-4 lg:col-start-3 lg:row-start-1 lg:col-span-1 lg:row-span-2"
+              className="col-span-3 row-span-4 lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-3"
             >
               <Link
                 href="/contact"
@@ -398,60 +450,65 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
                 data-premium-variant="card"
                 data-premium-strength="0.07"
                 data-premium-zoom="0.04"
-                className="ref-card group block h-full p-4"
+                className="cursor-pointer group relative flex h-full flex-col overflow-hidden rounded-xl bg-[var(--background)] [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] transform-gpu md:justify-between dark:bg-[var(--background)] dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]"
               >
-                <div className="absolute inset-0">
-                  <div className="ml-auto mr-6 w-1/3 lg:mr-0 lg:w-1/2">
-                    <div className="relative h-80 w-full max-w-md overflow-hidden bg-transparent p-6">
-                      {[0, 1, 2, 3].map((index) => {
-                        const isBlue = index % 2 === 0;
-                        const alignEnd = index % 2 === 1;
-
-                        return (
-                          <motion.div
-                            key={`chat-bubble-${index}`}
-                            initial={false}
-                            animate={{ opacity: [0.8, 1, 0.8], y: [0, -2.8, 0] }}
-                            transition={{ duration: 3.6, repeat: Infinity, delay: index * 0.2, ease: "easeInOut" }}
-                            className={`mb-3 flex ${alignEnd ? "justify-end" : "justify-start"}`}
-                          >
-                            <div
-                              className={`relative max-w-[85%] rounded-2xl p-2 md:max-w-[75%] md:px-3 md:py-2 ${
-                                isBlue ? "rounded-tl-sm bg-sky-600" : "rounded-tr-sm bg-green-600"
-                              } text-white`}
-                            >
-                              <div className="flex items-center gap-1 md:gap-1.5">
-                                {[0, 1, 2].map((dotIndex) => (
-                                  <motion.div
-                                    key={`chat-dot-${index}-${dotIndex}`}
-                                    animate={{ opacity: [0.4, 0.9, 0.4], y: [0, -1.1, 0] }}
-                                    transition={{
-                                      duration: 2.2,
-                                      repeat: Infinity,
-                                      delay: index * 0.16 + dotIndex * 0.08,
-                                      ease: "easeInOut",
-                                    }}
-                                    className="size-1.5 rounded-full bg-white"
-                                  />
-                                ))}
+                <div className="home-card-layer group absolute inset-0">
+                  <div className="absolute inset-x-0 top-0 h-[56%] overflow-hidden">
+                    <div className="ml-auto mr-6 h-full w-1/3 lg:mr-0 lg:w-1/2">
+                      <div className="relative mx-auto h-full w-full max-w-md overflow-hidden bg-transparent p-4 lg:p-6">
+                        <div className="contact-message-track">
+                          {contactBubbleStream.map((isGreen, index) => {
+                            return (
+                              <div
+                                key={`chat-bubble-${index}`}
+                                className={`flex ${isGreen ? "justify-end" : "justify-start"}`}
+                              >
+                                <div
+                                  className={`relative max-w-[85%] rounded-2xl p-2 md:max-w-[75%] md:px-3 md:py-2 ${
+                                    isGreen ? "rounded-tr-sm bg-green-600" : "rounded-tl-sm bg-sky-600"
+                                  } text-white`}
+                                >
+                                  <div className="flex items-center gap-1 md:gap-1.5">
+                                    {[0, 1, 2].map((dotIndex) => (
+                                      <span
+                                        key={`chat-dot-${index}-${dotIndex}`}
+                                        className="contact-dot size-1.5 rounded-full bg-white"
+                                        style={{ animationDelay: `${index * 0.18 + dotIndex * 0.08}s` }}
+                                      />
+                                    ))}
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          </motion.div>
-                        );
-                      })}
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="pointer-events-none absolute inset-x-4 bottom-4 z-10 transition-all duration-300 lg:group-hover:-translate-y-1.5">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
-                    <FiSend className="h-6 w-6" />
-                  </span>
-                  <h3 data-premium-text className="mt-2 font-display text-[2.2rem] leading-none tracking-[-0.015em] lg:text-[2.35rem]">
-                    Contact
-                  </h3>
-                  <p className="mt-1 max-w-lg text-[0.95rem] text-[var(--muted-foreground)]">Email, LinkedIn, carrier pigeon...</p>
+                <div className="relative z-10 flex h-full flex-col justify-end px-4 py-2 lg:py-4">
+                  <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 transition-all duration-300 lg:group-hover:-translate-y-2">
+                    <div className="flex flex-row items-center gap-2 lg:flex-col lg:items-start lg:gap-1">
+                      <FiSend className="size-5 origin-left transform-gpu text-neutral-700 transition-all duration-300 ease-in-out group-hover:text-[var(--primary)] dark:text-neutral-300 lg:size-12 lg:group-hover:scale-75" />
+                      <h3
+                        data-premium-text
+                        className="font-serif text-lg font-semibold text-neutral-700 dark:text-neutral-300 lg:text-xl"
+                      >
+                        Contact
+                      </h3>
+                      <div className="ml-auto lg:hidden">
+                        <span className="inline-flex size-9 items-center justify-center text-[var(--primary)]">
+                          <FiArrowRight className="size-6" />
+                        </span>
+                      </div>
+                    </div>
+                    <p className="max-w-lg text-xs text-neutral-400 lg:text-sm">
+                      Email, LinkedIn, carrier pigeon...
+                    </p>
+                  </div>
                 </div>
+                <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300" />
               </Link>
             </motion.div>
           </div>
@@ -463,7 +520,7 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
           initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-2 w-full max-w-6xl px-1 sm:mt-3 sm:px-2 lg:mt-4"
+          className="mx-auto mt-6 w-full max-w-6xl px-1 sm:mt-7 sm:px-2 lg:mt-8"
         >
           <h2 className="w-full py-1 text-center text-sm font-medium sm:text-xl">
             <span className="mx-auto max-w-md text-[color-mix(in_oklab,var(--foreground)_65%,transparent)] shiny-text">

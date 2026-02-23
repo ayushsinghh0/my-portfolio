@@ -20,21 +20,58 @@ type ProjectCardProps =
       project?: never;
     };
 
-const projectGradients = [
-  "linear-gradient(135deg, #edb23c 0%, #f1c96a 42%, #dfa129 100%)",
-  "linear-gradient(135deg, #8f42e6 0%, #b57bf4 45%, #812fdd 100%)",
-  "linear-gradient(135deg, #26a97a 0%, #59bf95 50%, #0f9a6c 100%)",
-  "linear-gradient(135deg, #e1464f 0%, #f06a70 46%, #d71f29 100%)",
+type CardTheme = {
+  background: string;
+  textColor: string;
+  descriptionColor: string;
+  borderColor: string;
+  thumbSurface: string;
+  thumbBorderColor: string;
+  iconColor: string;
+};
+
+const shellShadow =
+  "rgba(34, 42, 53, 0.12) 0px 10px 32px, rgba(0, 0, 0, 0.05) 0px 1px 1px, rgba(34, 42, 53, 0.05) 0px 0px 0px 1px, rgba(34, 42, 53, 0.08) 0px 4px 6px, rgba(47, 48, 55, 0.1) 0px 24px 108px";
+
+const projectThemes: CardTheme[] = [
+  {
+    background: "linear-gradient(135deg, #ca8a04 0%, #eab308 54%, #ca8a04 100%)",
+    textColor: "#111827",
+    descriptionColor: "rgba(17, 24, 39, 0.9)",
+    borderColor: "rgba(109, 76, 8, 0.38)",
+    thumbSurface: "rgba(15, 23, 42, 0.92)",
+    thumbBorderColor: "rgba(249, 230, 171, 0.62)",
+    iconColor: "rgba(17, 24, 39, 0.9)",
+  },
+  {
+    background: "linear-gradient(135deg, #6b21a8 0%, #7e22ce 52%, #5b1f94 100%)",
+    textColor: "#ffffff",
+    descriptionColor: "rgba(255, 255, 255, 0.93)",
+    borderColor: "rgba(238, 225, 255, 0.3)",
+    thumbSurface: "rgba(102, 66, 176, 0.46)",
+    thumbBorderColor: "rgba(239, 230, 255, 0.5)",
+    iconColor: "rgba(255, 255, 255, 0.95)",
+  },
+  {
+    background: "linear-gradient(135deg, #166534 0%, #15803d 52%, #14532d 100%)",
+    textColor: "#ffffff",
+    descriptionColor: "rgba(255, 255, 255, 0.93)",
+    borderColor: "rgba(222, 247, 231, 0.3)",
+    thumbSurface: "rgba(233, 246, 238, 0.94)",
+    thumbBorderColor: "rgba(228, 248, 235, 0.7)",
+    iconColor: "rgba(255, 255, 255, 0.95)",
+  },
 ];
 
-const projectThumbSurfaces = [
-  "rgba(0, 0, 0, 0.34)",
-  "rgba(67, 39, 122, 0.38)",
-  "rgba(233, 246, 238, 0.9)",
-  "rgba(140, 28, 39, 0.36)",
-];
-
-const contactGradient = "linear-gradient(135deg, #4162d8 0%, #7f99f3 46%, #294bd0 100%)";
+const contactTheme: CardTheme = {
+  background: "linear-gradient(135deg, #1d4ed8 0%, #2563eb 48%, #1e3a8a 100%)",
+  textColor: "#ffffff",
+  descriptionColor: "rgba(255, 255, 255, 0.95)",
+  borderColor: "rgba(211, 224, 255, 0.3)",
+  thumbSurface: "rgba(183, 201, 255, 0.38)",
+  thumbBorderColor: "rgba(227, 236, 255, 0.5)",
+  iconColor: "rgba(255, 255, 255, 0.95)",
+};
 
 function summarizeDescription(description: string) {
   const firstSentence = description.split(".")[0]?.trim();
@@ -54,20 +91,16 @@ export function ProjectCard(props: ProjectCardProps) {
   const { index } = props;
   const { scrollYProgress } = useScroll({
     target: cardRef,
-    offset: ["start 88%", "end 20%"],
+    offset: ["start 92%", "end 16%"],
   });
-  const depthYRaw = useTransform(scrollYProgress, [0, 0.25, 0.85, 1], [30, 0, 0, -16]);
-  const opacityRaw = useTransform(scrollYProgress, [0, 0.14, 1], [0.5, 1, 1]);
-  const scaleRaw = useTransform(scrollYProgress, [0, 0.2, 0.84, 1], [0.965, 1, 1, 0.99]);
-  const depthY = useSpring(depthYRaw, { stiffness: 130, damping: 28, mass: 0.72 });
-  const opacity = useSpring(opacityRaw, { stiffness: 130, damping: 30, mass: 0.76 });
-  const scale = useSpring(scaleRaw, { stiffness: 130, damping: 30, mass: 0.76 });
+  const depthYRaw = useTransform(scrollYProgress, [0, 0.28, 0.84, 1], [16, 0, 0, -9]);
+  const opacityRaw = useTransform(scrollYProgress, [0, 0.12, 1], [0.74, 1, 1]);
+  const scaleRaw = useTransform(scrollYProgress, [0, 0.2, 0.84, 1], [0.982, 1, 1, 0.995]);
+  const depthY = useSpring(depthYRaw, { stiffness: 165, damping: 34, mass: 0.78 });
+  const opacity = useSpring(opacityRaw, { stiffness: 170, damping: 36, mass: 0.8 });
+  const scale = useSpring(scaleRaw, { stiffness: 170, damping: 36, mass: 0.8 });
 
-  const stickyTop = `calc(clamp(5.9rem, 27vh, 16.9rem) + ${index * 4}px + env(safe-area-inset-top))`;
-  const gradient = isContactCard ? contactGradient : projectGradients[index % projectGradients.length];
-  const thumbSurface = isContactCard
-    ? "rgba(183, 201, 255, 0.38)"
-    : projectThumbSurfaces[index % projectThumbSurfaces.length];
+  const theme = isContactCard ? contactTheme : projectThemes[index % projectThemes.length];
   const cardTitle = isContactCard ? "New Project" : project?.cardTitle ?? project?.title ?? "Project";
   const cardDescription = isContactCard
     ? "I'm always exploring new ideas."
@@ -91,44 +124,50 @@ export function ProjectCard(props: ProjectCardProps) {
       tabIndex={0}
       onClick={openDestination}
       onKeyDown={handleKeyDown}
-      whileHover={reduceMotion ? undefined : { y: -2 }}
-      className="group grain relative sticky h-[15.9rem] cursor-pointer overflow-hidden rounded-[1.45rem] border border-white/18 px-4 py-5 text-white shadow-[0_18px_44px_rgba(0,0,0,0.42)] outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:h-[16.95rem] sm:px-6 sm:py-6"
+      whileHover={reduceMotion ? undefined : { y: -4, scale: 1.008 }}
+      className="group grain project-sheen relative h-full cursor-pointer overflow-hidden rounded-2xl border px-4 pb-4 pt-2 outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:px-6 sm:pb-4"
       style={{
-        top: stickyTop,
-        zIndex: index + 20,
-        background: gradient,
+        background: theme.background,
+        color: theme.textColor,
+        borderColor: theme.borderColor,
+        boxShadow: shellShadow,
         y: reduceMotion ? 0 : depthY,
         opacity: reduceMotion ? 1 : opacity,
         scale: reduceMotion ? 1 : scale,
       }}
       aria-label={isContactCard ? "Open contact page" : `Open ${cardTitle} project`}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,255,255,0.42)_0%,rgba(255,255,255,0.08)_42%,transparent_72%)] opacity-75" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(128deg,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.02)_34%,rgba(0,0,0,0.14)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))]" />
 
-      <div className="relative flex h-full items-center gap-3.5 sm:gap-5">
-        <div
-          className="relative flex h-[5.8rem] w-[5.8rem] shrink-0 items-center justify-center overflow-hidden rounded-[1.1rem] border border-white/28 shadow-[0_12px_22px_rgba(0,0,0,0.28)] sm:h-[6.95rem] sm:w-[6.95rem]"
-          style={{ backgroundColor: thumbSurface }}
+      <div className="relative flex h-full items-center gap-4">
+        <motion.div
+          className="relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-2xl border shadow-[0_12px_22px_rgba(0,0,0,0.28)] md:h-[7.5rem] md:w-[7.5rem]"
+          style={{ backgroundColor: theme.thumbSurface, borderColor: theme.thumbBorderColor }}
+          animate={reduceMotion ? undefined : { y: [0, -2, 0], rotate: [0, -0.6, 0.6, 0] }}
+          transition={reduceMotion ? undefined : { duration: 4.8, ease: "easeInOut", repeat: Number.POSITIVE_INFINITY }}
         >
           {isContactCard ? (
-            <FiPlus className="h-10 w-10 text-slate-300 sm:h-12 sm:w-12" />
+            <FiPlus className="h-10 w-10 sm:h-12 sm:w-12" style={{ color: theme.iconColor }} />
           ) : project?.logoPath ? (
-            <Image src={project.logoPath} alt={`${cardTitle} logo`} fill className="object-cover" />
+            <Image src={project.logoPath} alt={`${cardTitle} logo`} fill className="object-contain p-2.5" />
           ) : (
-            <span className="text-[2rem] font-semibold uppercase text-white/90">{cardTitle.charAt(0)}</span>
+            <span className="text-[2rem] font-semibold uppercase" style={{ color: theme.iconColor }}>
+              {cardTitle.charAt(0)}
+            </span>
           )}
-        </div>
+        </motion.div>
 
-        <div className="min-w-0">
-          <h3 className="text-balance text-[clamp(1.8rem,2.6vw,3rem)] font-semibold leading-[0.95] tracking-[-0.02em] text-white">
+        <div className="min-w-0 max-w-[24rem] self-center sm:max-w-[25.5rem] md:max-w-[28rem]">
+          <h3 className="text-balance text-2xl font-bold tracking-tight transition-transform duration-200 group-hover:scale-[1.02] md:text-3xl">
             {cardTitle}
           </h3>
-          <p className="mt-2 max-w-[33rem] text-pretty text-[clamp(0.98rem,1.08vw,1.6rem)] leading-[1.35] text-white/94">
+          <p className="mt-1 text-pretty text-sm leading-snug md:text-[1.08rem]" style={{ color: theme.descriptionColor }}>
             {cardDescription}
           </p>
           {isContactCard ? (
-            <p className="mt-4 text-[clamp(1.05rem,1.12vw,1.35rem)] font-medium text-white/95">Let&apos;s connect</p>
+            <p className="mt-3 text-base font-medium" style={{ color: theme.descriptionColor }}>
+              Let&apos;s connect
+            </p>
           ) : null}
         </div>
       </div>

@@ -103,6 +103,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -113,6 +114,7 @@ body {
   line-height: 1.5;
   letter-spacing: var(--tracking-normal);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   overflow-x: clip;
 }
 
@@ -344,6 +346,14 @@ body::after {
 .premium-interactive > :not(.pm-layer),
 [data-premium] > :not(.pm-layer) {
   position: relative;
+  z-index: 2;
+}
+
+/* Keep card artwork layers absolute inside premium cards */
+.premium-interactive > .home-card-layer,
+[data-premium] > .home-card-layer {
+  position: absolute;
+  inset: 0;
   z-index: 2;
 }
 
@@ -702,6 +712,87 @@ body::after {
   animation: marquee-vertical 32s linear infinite;
 }
 
+.animate-marquee {
+  animation: logo-marquee var(--duration, 15s) linear infinite;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--duration, 15s) linear infinite;
+}
+
+/* Project card logo strip: vertical movement on small screens, horizontal on lg */
+.project-marquee-track {
+  animation: marquee-vertical var(--duration, 15s) linear infinite;
+}
+
+@keyframes logo-marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes project-strip-left-to-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.project-strip-track {
+  --duration: 14s;
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  will-change: transform;
+  padding: 0.5rem;
+  animation: project-strip-left-to-right var(--duration) linear infinite;
+}
+
+@media (min-width: 1024px) {
+  .project-marquee-track {
+    animation: logo-marquee-reverse var(--duration, 15s) linear infinite;
+  }
+}
+
+/* Contact card: continuous upward message stream */
+@keyframes contact-message-scroll {
+  0% {
+    transform: translateY(14%);
+  }
+  100% {
+    transform: translateY(-52%);
+  }
+}
+
+.contact-message-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  will-change: transform;
+  animation: contact-message-scroll 10.4s linear infinite;
+}
+
+@keyframes contact-dot-bounce {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.88;
+    transform: translateY(-1px);
+  }
+}
+
+.contact-dot {
+  animation: contact-dot-bounce 1.4s ease-in-out infinite;
+}
+
 @keyframes chat-float {
   0%,
   100% {
@@ -833,15 +924,7 @@ body::after {
     scroll-behavior: auto;
   }
 
-  :where(*, *::before, *::after) {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
   .marquee-track,
-  .chat-float,
   .float-badge,
   .project-sheen::before,
   .pm-border-flow,

@@ -112,7 +112,12 @@ export function PremiumMotionController() {
     let pointerY = -10_000;
     let rafId = 0;
 
-    const requestUpdate = () => {
+    const hasActiveElements = () => records.some((item) => item.hovered || item.pressed);
+
+    const requestUpdate = (force = false) => {
+      if (!force && !hasActiveElements()) {
+        return;
+      }
       if (rafId) return;
       rafId = window.requestAnimationFrame(updateAll);
     };
@@ -186,7 +191,7 @@ export function PremiumMotionController() {
     const onPointerLeaveWindow = () => {
       pointerX = -10_000;
       pointerY = -10_000;
-      requestUpdate();
+      requestUpdate(true);
     };
 
     const cleanups: Array<() => void> = [];
@@ -194,20 +199,20 @@ export function PremiumMotionController() {
     for (const item of records) {
       const onEnter = () => {
         item.hovered = true;
-        requestUpdate();
+        requestUpdate(true);
       };
       const onLeave = () => {
         item.hovered = false;
         item.pressed = false;
-        requestUpdate();
+        requestUpdate(true);
       };
       const onDown = () => {
         item.pressed = true;
-        requestUpdate();
+        requestUpdate(true);
       };
       const onUp = () => {
         item.pressed = false;
-        requestUpdate();
+        requestUpdate(true);
       };
 
       item.el.addEventListener("pointerenter", onEnter, { passive: true });
@@ -227,18 +232,30 @@ export function PremiumMotionController() {
       });
     }
 
+    const onScroll = () => {
+      if (!hasActiveElements()) {
+        return;
+      }
+
+      requestUpdate(true);
+    };
+
+    const onResize = () => {
+      requestUpdate(true);
+    };
+
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     window.addEventListener("pointerleave", onPointerLeaveWindow, { passive: true });
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate, { passive: true });
-    requestUpdate();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
+    requestUpdate(true);
 
     return () => {
       cleanups.forEach((cleanup) => cleanup());
       window.removeEventListener("pointermove", onPointerMove);
       window.removeEventListener("pointerleave", onPointerLeaveWindow);
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
       if (rafId) {
         window.cancelAnimationFrame(rafId);
       }
