@@ -264,7 +264,7 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
       className={
         chatMode
           ? "pt-6 sm:pt-8"
-          : "pb-6 pt-6 sm:pb-8 sm:pt-8 lg:pb-10"
+          : "pb-48 pt-6 sm:pb-52 sm:pt-8 lg:pb-56"
       }
     >
       {!chatMode ? (
@@ -520,60 +520,62 @@ export function HomeOverview({ chatMode = false, initialQuestion }: HomeOverview
           initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-6 w-full max-w-6xl px-1 sm:mt-7 sm:px-2 lg:mt-8"
+          className="fixed bottom-0 left-0 right-0 z-40 w-full bg-gradient-to-t from-[color-mix(in_oklab,var(--background)_95%,transparent)] via-[color-mix(in_oklab,var(--background)_78%,transparent)] to-transparent px-1 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] backdrop-blur-[1px] sm:px-2 md:left-24 md:px-4 lg:left-[7.5rem] lg:px-8"
         >
-          <h2 className="w-full py-1 text-center text-sm font-medium sm:text-xl">
-            <span className="mx-auto max-w-md text-[color-mix(in_oklab,var(--foreground)_65%,transparent)] shiny-text">
-              Ask AyushGPT
-            </span>
-          </h2>
+          <div className="mx-auto w-full max-w-6xl">
+            <h2 className="w-full py-1 text-center text-sm font-medium sm:text-xl">
+              <span className="mx-auto max-w-md text-[color-mix(in_oklab,var(--foreground)_65%,transparent)] shiny-text">
+                Ask AyushGPT
+              </span>
+            </h2>
 
-          <div className="mb-1.5 flex flex-wrap justify-center gap-2 px-2">
-            {questionPills.map((pill) => (
-              <button
-                key={pill}
-                type="button"
-                onClick={() => handleQuestionClick(pill)}
-                data-premium
-                data-premium-variant="button"
-                className="rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-4 py-1.5 text-[0.88rem] text-[var(--foreground)] hover:bg-[var(--panel-strong)]"
-              >
-                <span data-premium-text>{pill}</span>
-              </button>
-            ))}
-          </div>
-
-          <form onSubmit={handleSubmit} className="w-full bg-[var(--background)] pb-[env(safe-area-inset-bottom)]">
-            <div className="group/input panel relative flex w-full min-w-0 flex-col rounded-2xl border border-[var(--input)] shadow-xs">
-              <textarea
-                rows={1}
-                placeholder="What would you like to know?"
-                value={prompt}
-                onChange={(event) => setPrompt(event.target.value)}
-                className="max-h-48 min-h-14 w-full resize-none border-0 bg-transparent px-5 pb-0 pt-4 text-base text-[var(--foreground)] outline-none placeholder:text-[var(--muted-foreground)] md:px-4 md:text-sm"
-              />
-              <div className="order-last flex w-full items-center justify-between gap-1 px-3 pb-3 pt-2">
+            <div className="mb-1.5 flex flex-wrap justify-center gap-2 px-2">
+              {questionPills.map((pill) => (
                 <button
+                  key={pill}
                   type="button"
-                  aria-label="Voice input"
+                  onClick={() => handleQuestionClick(pill)}
                   data-premium
                   data-premium-variant="button"
-                  className="inline-flex size-8 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-all duration-200 hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)]"
+                  className="rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-4 py-1.5 text-[0.88rem] text-[var(--foreground)] hover:bg-[var(--panel-strong)]"
                 >
-                  <FiMic className="size-4" />
+                  <span data-premium-text>{pill}</span>
                 </button>
-                <button
-                  type="submit"
-                  aria-label="Open chat"
-                  data-premium
-                  data-premium-variant="button"
-                  className="inline-flex size-8 items-center justify-center rounded-md bg-[var(--primary)] text-[var(--primary-foreground)] transition-all hover:brightness-95"
-                >
-                  <FiSend className="size-4" />
-                </button>
-              </div>
+              ))}
             </div>
-          </form>
+
+            <form onSubmit={handleSubmit} className="w-full bg-[var(--background)] pb-[env(safe-area-inset-bottom)]">
+              <div className="group/input panel relative flex w-full min-w-0 flex-col rounded-2xl border border-[var(--input)] shadow-xs">
+                <textarea
+                  rows={1}
+                  placeholder="What would you like to know?"
+                  value={prompt}
+                  onChange={(event) => setPrompt(event.target.value)}
+                  className="max-h-48 min-h-14 w-full resize-none border-0 bg-transparent px-5 pb-0 pt-4 text-base text-[var(--foreground)] outline-none placeholder:text-[var(--muted-foreground)] md:px-4 md:text-sm"
+                />
+                <div className="order-last flex w-full items-center justify-between gap-1 px-3 pb-3 pt-2">
+                  <button
+                    type="button"
+                    aria-label="Voice input"
+                    data-premium
+                    data-premium-variant="button"
+                    className="inline-flex size-8 items-center justify-center rounded-md text-[var(--muted-foreground)] transition-all duration-200 hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)]"
+                  >
+                    <FiMic className="size-4" />
+                  </button>
+                  <button
+                    type="submit"
+                    aria-label="Open chat"
+                    data-premium
+                    data-premium-variant="button"
+                    className="inline-flex size-8 items-center justify-center rounded-md bg-[var(--primary)] text-[var(--primary-foreground)] transition-all hover:brightness-95"
+                  >
+                    <FiSend className="size-4" />
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </motion.div>
       ) : (
         <motion.div
