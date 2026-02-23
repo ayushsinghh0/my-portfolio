@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { FiSend } from "react-icons/fi";
 import { socialLinks } from "@/data/portfolio";
@@ -26,6 +26,47 @@ export function ContactSection() {
     damping: 26,
     mass: 0.8,
   });
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  });
+
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setStatus("success");
+      setFormData({ name: "", email: "", company: "", message: "" });
+    } catch (err: any) {
+      console.error(err);
+      setStatus("error");
+      setErrorMessage(err.message || "An unexpected error occurred.");
+    }
+  };
 
   return (
     <section id="contact" ref={sectionRef} className="pt-10 md:pt-12">
@@ -57,7 +98,7 @@ export function ContactSection() {
           </a>
         </motion.p>
 
-        <form className="mt-6 space-y-4">
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div className="space-y-2">
             <label
               htmlFor="name"
@@ -69,6 +110,10 @@ export function ContactSection() {
               id="name"
               type="text"
               placeholder="Your Name"
+              required
+              value={formData.name}
+              onChange={handleChange}
+              disabled={status === "loading"}
               className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
@@ -84,6 +129,10 @@ export function ContactSection() {
               id="email"
               type="email"
               placeholder="your.email@example.com"
+              required
+              value={formData.email}
+              onChange={handleChange}
+              disabled={status === "loading"}
               className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
@@ -99,6 +148,9 @@ export function ContactSection() {
               id="company"
               type="text"
               placeholder="Company Name"
+              value={formData.company}
+              onChange={handleChange}
+              disabled={status === "loading"}
               className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
@@ -114,19 +166,55 @@ export function ContactSection() {
               id="message"
               rows={4}
               placeholder="Tell me about the role or project..."
+              required
+              value={formData.message}
+              onChange={handleChange}
+              disabled={status === "loading"}
               className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
 
           <button
-            type="button"
+            type="submit"
+            disabled={status === "loading"}
             data-premium
             data-premium-variant="button"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)] bg-[var(--accent)] px-4 py-3 text-sm font-semibold text-[var(--accent-foreground)] hover:brightness-95"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)] bg-[var(--accent)] px-4 py-3 text-sm font-semibold text-[var(--accent-foreground)] hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
           >
-            <FiSend className="h-4 w-4" />
-            <span data-premium-text>Send Message</span>
+            {status === "loading" ? (
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                className="h-4 w-4 rounded-full border-2 border-[var(--accent-foreground)] border-t-transparent"
+              />
+            ) : (
+              <FiSend className="h-4 w-4" />
+            )}
+            <span data-premium-text>
+              {status === "loading" ? "Sending..." : "Send Message"}
+            </span>
           </button>
+
+          {/* Status Messages */}
+          {status === "success" && (
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-sm font-medium text-green-500 text-center mt-2"
+            >
+              ✅ Message sent successfully. I will get back to you soon.
+            </motion.p>
+          )}
+          {status === "error" && (
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-sm font-medium text-red-500 text-center mt-2"
+            >
+              {errorMessage}
+            </motion.p>
+          )}
+
         </form>
 
         <div className="mt-5 flex flex-wrap items-center gap-2.5">

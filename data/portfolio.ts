@@ -288,17 +288,17 @@ export type SocialLink = {
 export const socialLinks: SocialLink[] = [
   {
     label: "GitHub",
-    href: "#",
+    href: "https://github.com/ayushsinghh0",
     icon: FaGithub,
   },
   {
     label: "LinkedIn",
-    href: "#",
+    href: "https://www.linkedin.com/in/ayush-raj-386886249/",
     icon: FaLinkedin,
   },
   {
     label: "LeetCode",
-    href: "#",
+    href: "https://leetcode.com/u/ayushraj4820/",
     icon: SiLeetcode,
   },
 ];

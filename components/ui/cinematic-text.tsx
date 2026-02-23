@@ -36,7 +36,7 @@ export function CinematicRevealText({
         shouldAnimate
           ? {
               opacity: 1,
-              filter: "blur(0.9px)",
+              filter: "blur(0.1px)",
               y: 2,
               backgroundPosition: "140% 50%",
             }
