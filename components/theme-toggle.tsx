@@ -22,7 +22,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       data-premium-variant="button"
       className={
         className ??
-        "panel inline-flex h-10 w-10 items-center justify-center rounded-xltext-foreground hover:-translate-y-0.5"
+        "panel inline-flex h-10 w-10 items-center justify-center rounded-xl text-[var(--foreground)] hover:-translate-y-0.5"
       }
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >

@@ -71,14 +71,14 @@ export default async function ProjectDetailPage({
     <SiteShell>
       <PageTitle subtitle="Software Engineer" />
 
-      <section className="pt-4 md:pt-6">
+      <section className="pt-3 md:pt-6">
         <div className="mx-auto max-w-5xl">
-          <div className="mb-6">
+          <div className="mb-5">
             <Link
               href="/projects"
               data-premium
               data-premium-variant="button"
-              className="inline-flex items-center gap-2 text-base font-medium text-[var(--primary)] hover:underline"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[var(--primary)] hover:underline sm:text-base"
             >
               <FiArrowLeft className="h-4 w-4" />
               <span data-premium-text>Back to Projects</span>
@@ -86,15 +86,15 @@ export default async function ProjectDetailPage({
           </div>
 
           <article
-            className="grain relative overflow-hidden rounded-[1.5rem] border border-black/20 p-4 sm:p-5"
+            className="grain relative overflow-hidden rounded-[1.5rem] border border-black/20 p-3.5 sm:p-5"
             style={{ background: gradient }}
           >
             <div className="pointer-events-none absolute inset-0 opacity-[0.12] [mask-image:radial-gradient(#fff,transparent,74%)]" />
 
-            <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start">
+            <div className="relative flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
               <div className="relative overflow-hidden rounded-2xl border border-black/25 bg-black/20 shadow-[0_14px_28px_rgba(0,0,0,0.22)]">
                 {project.logoPath ? (
-                  <div className="relative h-[8.7rem] w-[8.7rem]">
+                  <div className="relative h-[7.2rem] w-[7.2rem] sm:h-[8.7rem] sm:w-[8.7rem]">
                     <Image
                       src={project.logoPath}
                       alt={`${project.title} logo`}
@@ -109,7 +109,7 @@ export default async function ProjectDetailPage({
                     muted
                     playsInline
                     preload="metadata"
-                    className="h-[8.7rem] w-[8.7rem] object-cover"
+                    className="h-[7.2rem] w-[7.2rem] object-cover sm:h-[8.7rem] sm:w-[8.7rem]"
                   >
                     <source src={project.videoPath} type="video/mp4" />
                   </video>
@@ -117,20 +117,20 @@ export default async function ProjectDetailPage({
               </div>
 
               <div className="max-w-3xl">
-                <h1 className="text-balance text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.02] tracking-[-0.022em] text-black">
+                <h1 className="text-balance text-[clamp(1.65rem,7vw,3rem)] font-bold leading-[1.02] tracking-[-0.022em] text-black">
                   {project.title}
                 </h1>
-                <p className="mt-2 text-[1.04rem] leading-relaxed text-black/88 sm:text-[1.16rem]">
+                <p className="mt-2 text-[0.94rem] leading-relaxed text-black/88 sm:text-[1.08rem] md:text-[1.16rem]">
                   {project.description}
                 </p>
               </div>
             </div>
           </article>
 
-          <div className="mt-8 grid gap-8 md:grid-cols-[1.45fr_1fr]">
+          <div className="mt-7 grid gap-7 md:mt-8 md:gap-8 md:grid-cols-[1.45fr_1fr]">
             <div className="space-y-8">
               <section>
-                <h2 className="font-display text-[clamp(2.1rem,4.2vw,3.1rem)] leading-[0.98]text-foreground">
+                <h2 className="font-display text-[clamp(1.78rem,8vw,3.1rem)] leading-[0.98] text-[var(--foreground)]">
                   About
                 </h2>
                 <p className="mt-3 max-w-2xl text-[1.02rem] leading-[1.62] text-[var(--muted-foreground)] sm:text-[1.11rem]">
@@ -139,7 +139,7 @@ export default async function ProjectDetailPage({
               </section>
 
               <section>
-                <h2 className="font-display text-[clamp(2.1rem,4.2vw,3.1rem)] leading-[0.98]text-foreground">
+                <h2 className="font-display text-[clamp(1.78rem,8vw,3.1rem)] leading-[0.98] text-[var(--foreground)]">
                   Key Features
                 </h2>
                 <ul className="mt-4 space-y-2.5">
@@ -160,7 +160,7 @@ export default async function ProjectDetailPage({
 
             <aside className="space-y-8">
               <section>
-                <h3 className="font-display text-[clamp(1.8rem,3vw,2.35rem)] leading-[1.02]text-foreground">
+                <h3 className="font-display text-[clamp(1.55rem,7vw,2.35rem)] leading-[1.02] text-[var(--foreground)]">
                   Info
                 </h3>
                 <div className="mt-4 space-y-3.5 text-[var(--muted-foreground)]">
@@ -196,7 +196,7 @@ export default async function ProjectDetailPage({
                       rel="noreferrer"
                       data-premium
                       data-premium-variant="button"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-3 py-1.5 text-sm font-semiboldtext-foreground hover:bg-[var(--panel-strong)]"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-3 py-1.5 text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--panel-strong)]"
                     >
                       <FiGithub className="h-4 w-4" />
                       <span data-premium-text>GitHub</span>
@@ -207,7 +207,7 @@ export default async function ProjectDetailPage({
                       rel="noreferrer"
                       data-premium
                       data-premium-variant="button"
-                      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-3 py-1.5 text-sm font-semiboldtext-foreground hover:bg-[var(--panel-strong)]"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--panel-border)] bg-[var(--panel)] px-3 py-1.5 text-sm font-semibold text-[var(--foreground)] hover:bg-[var(--panel-strong)]"
                     >
                       <FiExternalLink className="h-4 w-4" />
                       <span data-premium-text>Live Demo</span>
@@ -217,7 +217,7 @@ export default async function ProjectDetailPage({
               </section>
 
               <section>
-                <h3 className="font-display text-[clamp(1.8rem,3vw,2.35rem)] leading-[1.02]text-foreground">
+                <h3 className="font-display text-[clamp(1.55rem,7vw,2.35rem)] leading-[1.02] text-[var(--foreground)]">
                   Tech
                 </h3>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -226,7 +226,7 @@ export default async function ProjectDetailPage({
                     return (
                       <span
                         key={tech}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-[var(--panel-border)] bg-white px-2.5 py-1 text-[0.95rem] text-black"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-[var(--panel-border)] bg-white px-2.5 py-1 text-[0.82rem] text-black sm:text-[0.9rem] md:text-[0.95rem]"
                       >
                         {iconSlug ? (
                           // eslint-disable-next-line @next/next/no-img-element
@@ -247,10 +247,10 @@ export default async function ProjectDetailPage({
           </div>
 
           <div className="mt-8 border-t border-[var(--panel-border)] pt-6">
-            <h3 className="font-display text-[clamp(1.95rem,3.1vw,2.45rem)] leading-[1.02]text-foreground">
+            <h3 className="font-display text-[clamp(1.65rem,7vw,2.45rem)] leading-[1.02] text-[var(--foreground)]">
               More Projects
             </h3>
-            <div className="mt-4 flex gap-4 overflow-x-auto pb-2">
+            <div className="mt-4 flex gap-3 overflow-x-auto pb-2 sm:gap-4">
               {relatedProjects.map((item) => (
                 <Link
                   key={item.slug}
@@ -258,7 +258,7 @@ export default async function ProjectDetailPage({
                   data-premium
                   data-premium-variant="card"
                   data-premium-strength="0.08"
-                  className="group block size-28 shrink-0 overflow-hidden rounded-2xl border border-[var(--panel-border)] bg-[var(--panel)] transition-transform duration-300 hover:-translate-y-1"
+                  className="group block size-24 shrink-0 overflow-hidden rounded-2xl border border-[var(--panel-border)] bg-[var(--panel)] transition-transform duration-300 hover:-translate-y-1 sm:size-28"
                 >
                   {item.logoPath ? (
                     <div className="relative h-full w-full">

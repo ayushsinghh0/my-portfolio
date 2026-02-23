@@ -61,7 +61,7 @@ export function ExperienceSection() {
   });
 
   return (
-    <section id="experience" ref={sectionRef} className="pt-7 md:pt-8">
+    <section id="experience" ref={sectionRef} className="pt-6 md:pt-8">
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -109,12 +109,12 @@ export function ExperienceSection() {
             data-premium-strength="0.08"
             className="panel-strong rounded-2xl p-4"
           >
-            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--panel-border)]text-foreground">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--panel-border)] text-[var(--foreground)]">
               <item.icon className="h-5 w-5" />
             </span>
             <h3
               data-premium-text
-              className="font-edgy mt-3.5 text-lgtext-foreground"
+              className="font-edgy mt-3.5 text-lg text-[var(--foreground)]"
             >
               {item.title}
             </h3>
@@ -138,7 +138,7 @@ export function ExperienceSection() {
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--panel-border)]">
           <FiTarget className="h-5 w-5" />
         </span>
-        <p className="flex-1 text-smtext-foreground sm:text-base">
+        <p className="flex-1 text-sm text-[var(--foreground)] sm:text-base">
           Current goal: convert project depth into first high-impact
           professional role by delivering engineering quality above fresher
           expectations.

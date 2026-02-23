@@ -1484,6 +1484,26 @@ body::after {
   }
 }
 
+@media (max-width: 767px) {
+  body::after {
+    opacity: 0.14;
+  }
+
+  .aot-wall-layer,
+  .aot-branch,
+  .aot-trees,
+  .aot-hills,
+  .aot-dust,
+  .aot-butterfly {
+    display: none;
+  }
+
+  .premium-interactive,
+  [data-premium] {
+    --pm-glow-size: 160px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

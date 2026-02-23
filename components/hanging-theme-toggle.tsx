@@ -25,7 +25,7 @@ export function HangingThemeToggle() {
         rotate: { duration: 1.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 },
       }}
       whileTap={{ y: 6 }}
-      className="pull-chain-toggle group fixed -top-11 right-6 z-[120] block select-none sm:right-12 md:right-24"
+      className="pull-chain-toggle group fixed -top-11 right-6 z-[120] hidden select-none md:block md:right-24"
     >
       <div className="w-3 h-3 rounded-full border border-gray-500 bg-gradient-to-b from-gray-600 to-gray-800 shadow-sm" />
 

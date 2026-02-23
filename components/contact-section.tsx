@@ -61,15 +61,17 @@ export function ContactSection() {
 
       setStatus("success");
       setFormData({ name: "", email: "", company: "", message: "" });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error(err);
       setStatus("error");
-      setErrorMessage(err.message || "An unexpected error occurred.");
+      setErrorMessage(
+        err instanceof Error ? err.message : "An unexpected error occurred.",
+      );
     }
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="pt-10 md:pt-12">
+    <section id="contact" ref={sectionRef} className="pt-8 md:pt-12">
       <motion.div
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -102,7 +104,7 @@ export function ContactSection() {
           <div className="space-y-2">
             <label
               htmlFor="name"
-              className="text-sm font-mediumtext-foreground"
+              className="text-sm font-medium text-[var(--foreground)]"
             >
               Name
             </label>
@@ -114,14 +116,14 @@ export function ContactSection() {
               value={formData.name}
               onChange={handleChange}
               disabled={status === "loading"}
-              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
+              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3 text-[var(--foreground)] outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="email"
-              className="text-sm font-mediumtext-foreground"
+              className="text-sm font-medium text-[var(--foreground)]"
             >
               Email
             </label>
@@ -133,14 +135,14 @@ export function ContactSection() {
               value={formData.email}
               onChange={handleChange}
               disabled={status === "loading"}
-              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
+              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3 text-[var(--foreground)] outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="company"
-              className="text-sm font-mediumtext-foreground"
+              className="text-sm font-medium text-[var(--foreground)]"
             >
               Company
             </label>
@@ -151,14 +153,14 @@ export function ContactSection() {
               value={formData.company}
               onChange={handleChange}
               disabled={status === "loading"}
-              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
+              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3 text-[var(--foreground)] outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
 
           <div className="space-y-2">
             <label
               htmlFor="message"
-              className="text-sm font-mediumtext-foreground"
+              className="text-sm font-medium text-[var(--foreground)]"
             >
               Message
             </label>
@@ -170,7 +172,7 @@ export function ContactSection() {
               value={formData.message}
               onChange={handleChange}
               disabled={status === "loading"}
-              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3text-foreground outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
+              className="w-full rounded-xl border border-[var(--panel-border)] bg-[var(--input)] px-4 py-3 text-[var(--foreground)] outline-none placeholder:text-[color-mix(in_oklab,var(--muted-foreground)_75%,transparent)] focus:border-[var(--accent)]"
             />
           </div>
 
@@ -179,13 +181,13 @@ export function ContactSection() {
             disabled={status === "loading"}
             data-premium
             data-premium-variant="button"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)] bg-[var(--accent)] px-4 py-3 text-sm font-semibold text-[var(--accent-foreground)] hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[color-mix(in_oklab,var(--foreground)_14%,transparent)] bg-[var(--accent)] px-4 py-3 text-sm font-semibold text-neutral-900 hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-70 transition-all duration-200"
           >
             {status === "loading" ? (
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                className="h-4 w-4 rounded-full border-2 border-[var(--accent-foreground)] border-t-transparent"
+                className="h-4 w-4 rounded-full border-2 border-neutral-900 border-t-transparent"
               />
             ) : (
               <FiSend className="h-4 w-4" />
@@ -202,7 +204,7 @@ export function ContactSection() {
               animate={{ opacity: 1, y: 0 }}
               className="text-sm font-medium text-green-500 text-center mt-2"
             >
-              ✅ Message sent successfully. I will get back to you soon.
+              Message sent successfully. I will get back to you soon.
             </motion.p>
           )}
           {status === "error" && (

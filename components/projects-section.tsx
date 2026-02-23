@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { type CSSProperties, useRef } from "react";
 import { motion } from "framer-motion";
 import { projects } from "@/data/portfolio";
 import { PageTitle } from "@/components/page-title";
@@ -51,22 +51,22 @@ export function ProjectsSection() {
         </>
       ) : null}
 
-      <div className="mx-auto mt-6 w-full max-w-[46rem] space-y-0 pb-[calc(10rem+env(safe-area-inset-bottom))] sm:mt-7 sm:pb-[calc(11rem+env(safe-area-inset-bottom))] md:mt-9 md:pb-[calc(12rem+env(safe-area-inset-bottom))]">
+      <div className="mx-auto mt-5 w-full max-w-[46rem] space-y-4 pb-[calc(6rem+env(safe-area-inset-bottom))] sm:mt-7 sm:space-y-5 sm:pb-[calc(7rem+env(safe-area-inset-bottom))] md:mt-9 md:space-y-0 md:pb-[calc(12rem+env(safe-area-inset-bottom))]">
         {stackItems.map((item, index) => (
           <div
             key={item.key}
-            className="sticky top-[calc(7.625rem+env(safe-area-inset-top))] h-[min(76vh,30rem)] sm:h-[min(74vh,31rem)] md:top-[calc(11.375rem+env(safe-area-inset-top))] md:h-[min(72vh,32rem)]"
+            className="relative h-[15.5rem] sm:h-[16.5rem] md:sticky md:top-[calc(9.75rem+env(safe-area-inset-top))] md:h-[min(72vh,32rem)]"
           >
             <motion.div
               initial={{ opacity: 0, y: reduceMotion ? 0 : 26 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8, delay: Math.min(index * 0.08, 0.36), ease: [0.22, 1, 0.36, 1] }}
-              className="origin-top relative h-[15.9rem] sm:h-[16.95rem]"
+              className="relative h-full origin-top md:h-[15.9rem] md:top-[var(--stack-offset)] lg:h-[16.95rem]"
               style={{
-                top: `${Math.min(index * 4, 12)}%`,
+                "--stack-offset": `${Math.min(index * 4, 12)}%`,
                 zIndex: index + 10,
-              }}
+              } as CSSProperties}
             >
               {item.type === "project" ? (
                 <ProjectCard project={item.project} index={index} />

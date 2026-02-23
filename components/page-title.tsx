@@ -30,7 +30,7 @@ export function PageTitle({ subtitle = "Backend Engineer" }: PageTitleProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        className="font-display text-[clamp(3rem,7.6vw,6rem)] font-medium leading-[0.9] tracking-[-0.02em] text-foreground"
+        className="font-display text-[clamp(2.35rem,9.2vw,6rem)] font-medium leading-[0.9] tracking-[-0.02em] text-[var(--foreground)]"
         style={{ y: reduceMotion ? 0 : headingDepth }}
       >
         <CinematicRevealText className="inline-block" duration={2.6}>
@@ -41,7 +41,7 @@ export function PageTitle({ subtitle = "Backend Engineer" }: PageTitleProps) {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.05, delay: 0.14, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-2 text-[clamp(1.18rem,1.45vw,1.55rem)] font-semibold tracking-[-0.008em] text-foreground"
+        className="mt-2 text-[clamp(1rem,3.9vw,1.55rem)] font-semibold tracking-[-0.008em] text-[var(--foreground)]"
         style={{ y: reduceMotion ? 0 : subtitleDepth }}
       >
         <CinematicRevealText

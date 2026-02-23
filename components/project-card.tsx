@@ -125,7 +125,7 @@ export function ProjectCard(props: ProjectCardProps) {
       onClick={openDestination}
       onKeyDown={handleKeyDown}
       whileHover={reduceMotion ? undefined : { y: -4, scale: 1.008 }}
-      className="group grain project-sheen relative h-full cursor-pointer overflow-hidden rounded-2xl border px-4 pb-4 pt-2 outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:px-6 sm:pb-4"
+      className="group grain project-sheen relative h-full cursor-pointer overflow-hidden rounded-2xl border px-3.5 pb-3.5 pt-3 outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:px-5 sm:pb-4"
       style={{
         background: theme.background,
         color: theme.textColor,
@@ -139,33 +139,33 @@ export function ProjectCard(props: ProjectCardProps) {
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))]" />
 
-      <div className="relative flex h-full items-center gap-4">
+      <div className="relative flex h-full flex-col items-start justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
         <motion.div
-          className="relative flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden rounded-2xl border shadow-[0_12px_22px_rgba(0,0,0,0.28)] md:h-[7.5rem] md:w-[7.5rem]"
+          className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border shadow-[0_12px_22px_rgba(0,0,0,0.28)] sm:h-24 sm:w-24 md:h-[7.5rem] md:w-[7.5rem]"
           style={{ backgroundColor: theme.thumbSurface, borderColor: theme.thumbBorderColor }}
           animate={reduceMotion ? undefined : { y: [0, -2, 0], rotate: [0, -0.6, 0.6, 0] }}
           transition={reduceMotion ? undefined : { duration: 4.8, ease: "easeInOut", repeat: Number.POSITIVE_INFINITY }}
         >
           {isContactCard ? (
-            <FiPlus className="h-10 w-10 sm:h-12 sm:w-12" style={{ color: theme.iconColor }} />
+            <FiPlus className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12" style={{ color: theme.iconColor }} />
           ) : project?.logoPath ? (
             <Image src={project.logoPath} alt={`${cardTitle} logo`} fill className="object-contain p-2.5" />
           ) : (
-            <span className="text-[2rem] font-semibold uppercase" style={{ color: theme.iconColor }}>
+            <span className="text-[1.65rem] font-semibold uppercase sm:text-[2rem]" style={{ color: theme.iconColor }}>
               {cardTitle.charAt(0)}
             </span>
           )}
         </motion.div>
 
-        <div className="min-w-0 max-w-[24rem] self-center sm:max-w-[25.5rem] md:max-w-[28rem]">
-          <h3 className="text-balance text-2xl font-bold tracking-tight transition-transform duration-200 group-hover:scale-[1.02] md:text-3xl">
+        <div className="w-full min-w-0 max-w-full self-center sm:max-w-[25.5rem] md:max-w-[28rem]">
+          <h3 className="text-balance text-xl font-bold tracking-tight transition-transform duration-200 group-hover:scale-[1.02] sm:text-2xl md:text-3xl">
             {cardTitle}
           </h3>
-          <p className="mt-1 text-pretty text-sm leading-snug md:text-[1.08rem]" style={{ color: theme.descriptionColor }}>
+          <p className="mt-1 text-pretty text-[0.88rem] leading-snug sm:text-sm md:text-[1.08rem]" style={{ color: theme.descriptionColor }}>
             {cardDescription}
           </p>
           {isContactCard ? (
-            <p className="mt-3 text-base font-medium" style={{ color: theme.descriptionColor }}>
+            <p className="mt-2.5 text-sm font-medium sm:text-base" style={{ color: theme.descriptionColor }}>
               Let&apos;s connect
             </p>
           ) : null}

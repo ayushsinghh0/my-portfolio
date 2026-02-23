@@ -242,35 +242,41 @@ export function Navbar() {
         initial={false}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-        className="sticky top-0 z-40 px-3 pb-2 pt-3 md:hidden"
+        className="sticky top-0 z-40 px-2 pb-2 pt-2 md:hidden"
       >
-        <nav className="panel-strong flex items-center justify-between rounded-2xl px-3 py-2">
-          <Link
-            href="/"
-            data-premium
-            data-premium-variant="button"
-            className="text-sm font-semibold tracking-[0.1em] uppercase"
-          >
-            <span data-premium-text>Ayush Raj</span>
-          </Link>
+        <nav className="panel-strong rounded-2xl px-3 py-2.5">
+          <div className="flex items-center justify-between gap-3">
+            <Link
+              href="/"
+              data-premium
+              data-premium-variant="button"
+              className="min-w-0 truncate text-[0.72rem] font-semibold tracking-[0.14em] uppercase"
+            >
+              <span data-premium-text>Ayush Raj</span>
+            </Link>
+            <ThemeToggle className="panel inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[var(--foreground)]" />
+          </div>
 
-          <div className="flex max-w-[78vw] items-center gap-1 overflow-x-auto">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                data-premium
-                data-premium-variant="button"
-                className={`rounded-lg px-2 py-1 text-xs whitespace-nowrap ${
-                  normalizedPath === link.href
-                    ? "text-[var(--foreground)]"
-                    : "text-[var(--muted)]"
-                }`}
-              >
-                <span data-premium-text>{link.label}</span>
-              </Link>
-            ))}
-            <ThemeToggle className="panel inline-flex h-9 w-9 items-center justify-center rounded-lgtext-foreground" />
+          <div className="-mx-1 mt-2 flex snap-x gap-1 overflow-x-auto px-1 pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {navLinks.map((link) => {
+              const isActive = normalizedPath === link.href;
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  data-premium
+                  data-premium-variant="button"
+                  className={`shrink-0 snap-start rounded-lg px-2.5 py-1.5 text-[0.72rem] font-medium whitespace-nowrap ${
+                    isActive
+                      ? "bg-[var(--primary)] text-[var(--primary-foreground)]"
+                      : "bg-[color-mix(in_oklab,var(--panel)_82%,transparent)] text-[var(--muted-foreground)]"
+                  }`}
+                >
+                  <span data-premium-text>{link.label}</span>
+                </Link>
+              );
+            })}
           </div>
         </nav>
       </motion.header>

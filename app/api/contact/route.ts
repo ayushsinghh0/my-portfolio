@@ -55,10 +55,13 @@ export async function POST(req: Request) {
     // 4. Return success
     return NextResponse.json({ success: true, data }, { status: 200 });
 
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('Error in contact route:', err);
+    const errorMessage =
+      err instanceof Error ? err.message : 'An unexpected error occurred.';
+
     return NextResponse.json(
-      { error: 'An unexpected error occurred.' },
+      { error: errorMessage || 'An unexpected error occurred.' },
       { status: 500 }
     );
   }

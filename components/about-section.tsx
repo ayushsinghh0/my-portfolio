@@ -32,7 +32,7 @@ export function AboutSection() {
   });
 
   return (
-    <section id="about" ref={sectionRef} className="pt-13 md:pt-15">
+    <section id="about" ref={sectionRef} className="pt-10 md:pt-14">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -51,7 +51,7 @@ export function AboutSection() {
 
         <motion.div
           style={{ y: reduceMotion ? 0 : bodyDepth }}
-          className="mt-6 space-y-4.5 text-[clamp(1rem,1.04vw,1.18rem)] leading-[1.44] tracking-[-0.006em]text-foreground"
+          className="mt-6 space-y-4.5 text-[clamp(0.98rem,1.04vw,1.18rem)] leading-[1.44] tracking-[-0.006em] text-[var(--foreground)]"
         >
           <motion.p
             initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
@@ -119,7 +119,7 @@ export function AboutSection() {
               delay: 0.12,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="mt-3.5 list-disc space-y-1.5 pl-6 text-[clamp(0.99rem,0.95vw,1.1rem)] leading-[1.5] tracking-[-0.004em]text-foreground"
+            className="mt-3.5 list-disc space-y-1.5 pl-6 text-[clamp(0.96rem,0.95vw,1.1rem)] leading-[1.5] tracking-[-0.004em] text-[var(--foreground)]"
           >
             <li>
               <span className="text-[var(--foreground)]">Location:</span> Noida,
@@ -157,11 +157,11 @@ export function AboutSection() {
               delay: 0.12,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="mt-3.5 list-disc space-y-1.5 pl-6 text-[clamp(0.99rem,0.95vw,1.1rem)] leading-[1.5] tracking-[-0.004em]text-foreground"
+            className="mt-3.5 list-disc space-y-1.5 pl-6 text-[clamp(0.96rem,0.95vw,1.1rem)] leading-[1.5] tracking-[-0.004em] text-[var(--foreground)]"
           >
             {skillGroups.map((group) => (
               <li key={group.title}>
-                <span className="font-semiboldtext-foreground">
+                <span className="font-semibold text-[var(--foreground)]">
                   {group.title}:
                 </span>{" "}
                 {group.skills.join(", ")}
@@ -189,7 +189,7 @@ export function AboutSection() {
               delay: 0.12,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="mt-3.5 list-disc space-y-1.5 pl-6 text-[clamp(0.99rem,0.95vw,1.1rem)] leading-[1.5] tracking-[-0.004em]text-foreground"
+            className="mt-3.5 list-disc space-y-1.5 pl-6 text-[clamp(0.96rem,0.95vw,1.1rem)] leading-[1.5] tracking-[-0.004em] text-[var(--foreground)]"
           >
             {achievements.map((item) => (
               <li key={item}>{item}</li>
