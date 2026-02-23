@@ -5,6 +5,8 @@ import { SiLeetcode } from "react-icons/si";
 export type Project = {
   slug: string;
   title: string;
+  cardTitle?: string;
+  stackDescription?: string;
   tech: string[];
   description: string;
   about?: string;
@@ -37,6 +39,8 @@ export const projects: Project[] = [
   {
     slug: "workwizard-intelligent-job-portal",
     title: "WorkWizard - Intelligent Job Portal",
+    cardTitle: "WorkWizard",
+    stackDescription: "AI-first job platform with secure auth, recruiter workflows, and event-driven email automation.",
     tech: ["Next.js", "TypeScript", "PostgreSQL", "Redis", "Kafka", "Razorpay", "Gemini AI"],
     description:
       "Production-grade microservices job platform connecting job seekers and recruiters with AI resume analysis, AI career guidance, subscription-priority applicant ranking, and Kafka-based asynchronous email pipelines.",
@@ -108,6 +112,8 @@ export const projects: Project[] = [
   {
     slug: "aegisid-auth-service",
     title: "AegisID - Centralized Auth Service",
+    cardTitle: "AegisID",
+    stackDescription: "OAuth2/OIDC authentication core with token rotation, Redis acceleration, and hardened security flows.",
     tech: ["Node.js", "Redis", "Docker"],
     description:
       "OAuth2/OpenID compliant authentication server with RS256 signing. Redis caching reduced database load by 40%. Refresh token rotation and PKCE security flows. Dockerized deployment.",
@@ -174,6 +180,8 @@ export const projects: Project[] = [
   {
     slug: "collaborative-realtime-whiteboard",
     title: "Real-Time Collaborative Drawing App",
+    cardTitle: "Collaborative Drawing",
+    stackDescription: "Low-latency collaborative canvas with WebSocket synchronization and conflict-aware editing sessions.",
     tech: ["React", "WebSocket", "TypeScript"],
     description:
       "Low-latency collaborative drawing platform with real-time synchronization, conflict-aware interactions, and optimized undo/redo session handling.",
@@ -224,6 +232,69 @@ export const projects: Project[] = [
           "Architecture is being designed for scalability and future feature expansion.",
         ],
       },
+    ],
+  },
+  {
+    slug: "zod-json-schema-builder",
+    title: "Zod & JSON Schema Builder",
+    cardTitle: "Zod & JSON Schema Builder",
+    stackDescription: "Build schema definitions visually and export both JSON Schema and production-ready Zod validation code.",
+    tech: ["Next.js", "TypeScript", "Zod", "JSON Schema", "Monaco Editor"],
+    description:
+      "Visual schema modeling tool for teams that want one source of truth across frontend forms, backend validation, and API contracts.",
+    about:
+      "Zod & JSON Schema Builder is a contract-design tool that helps teams draft nested schemas visually and generate synchronized JSON Schema and Zod definitions without manual duplication.",
+    keyFeatures: [
+      "Visual drag-and-build schema editor with nested object and array support",
+      "Instant export to JSON Schema and Zod from a single configuration",
+      "Field-level constraints, defaults, optional states, and type-safe previews",
+      "Schema version snapshots for rapid iterations",
+      "Developer-first interface optimized for validation workflow speed",
+    ],
+    launchedYear: "2026",
+    traction: "Active build and iteration",
+    websiteUrl: "#",
+    githubUrl: "#",
+    liveUrl: "#",
+    videoPath: "/videos/project1.mp4",
+    logoPath: "/projects/ic-zod-json.svg",
+    caseStudySections: [
+      {
+        heading: "Problem Statement",
+        points: [
+          "Validation logic often gets duplicated across UI, API contracts, and backend runtime checks.",
+          "Manual synchronization between JSON Schema and Zod slows down delivery and introduces drift.",
+        ],
+      },
+      {
+        heading: "Solution Overview",
+        points: [
+          "Built a visual schema editor that stores canonical field metadata and relationships.",
+          "Added generation pipelines that emit JSON Schema and Zod from the same internal model.",
+          "Focused on fast iteration loops for schema authors and API teams.",
+        ],
+      },
+      {
+        heading: "Product Highlights",
+        points: [
+          "Supports nested objects, arrays, enums, and required/optional field modeling.",
+          "Encodes validation rules like min/max length, ranges, and custom constraints.",
+          "Provides clean exports that can be dropped directly into production codebases.",
+        ],
+      },
+      {
+        heading: "Impact",
+        points: [
+          "Reduces schema drift across frontend and backend by keeping one canonical source.",
+          "Speeds up contract design and validation integration for full-stack teams.",
+        ],
+      },
+    ],
+    quickStart: [
+      "git clone <your-repo-url>",
+      "cd zod-json-schema-builder",
+      "npm install",
+      "npm run dev",
     ],
   },
 ];
